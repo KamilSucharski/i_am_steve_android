@@ -1,4 +1,4 @@
-package com.iamsteve.domain.view
+package com.iamsteve.domain.view.base
 
 interface BasePresenter<V> {
 

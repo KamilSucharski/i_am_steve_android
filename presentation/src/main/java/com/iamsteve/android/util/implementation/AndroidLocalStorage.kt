@@ -1,4 +1,4 @@
-package com.iamsteve.android.util
+package com.iamsteve.android.util.implementation
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
@@ -11,7 +11,7 @@ import java.lang.reflect.Type
 
 class AndroidLocalStorage(
     private val sharedPreferences: SharedPreferences,
-    private val fileDirectory: File
+    private val filesDirectory: File
 ) : LocalStorage {
 
     private val gson = Gson()
@@ -44,14 +44,14 @@ class AndroidLocalStorage(
         return string
     }
 
-    override fun putSerializable(key: String, serializable: Serializable): Serializable {
+    override fun putSerializable(key: String, serializable: Serializable): String {
         val serializedValue = gson.toJson(serializable)
         sharedPreferences.edit().putString(key, serializedValue).apply()
         return serializedValue
     }
 
     override fun putFile(key: String, byteArray: ByteArray): File {
-        val file = File(fileDirectory, key)
+        val file = File(filesDirectory, key)
         file.writeBytes(byteArray)
         return file
     }
@@ -98,7 +98,7 @@ class AndroidLocalStorage(
     }
 
     override fun getFile(key: String): Optional<File> {
-        val file = File(fileDirectory, key)
+        val file = File(filesDirectory, key)
         return if (file.exists()) {
             Optional.of(file)
         } else {

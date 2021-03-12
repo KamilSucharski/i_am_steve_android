@@ -6,7 +6,6 @@ import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Operation
 import com.iamsteve.domain.util.RxSchedulers
 import com.iamsteve.domain.util.extension.schedule
-import com.iamsteve.domain.util.logger.Logger
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
 import org.koin.core.KoinComponent
