@@ -14,12 +14,18 @@ class StartPresenter : Presenter<StartContract.View>(), StartContract.Presenter 
         view.downloadTrigger
             .startWith(Unit)
             .flatMap { GetComicsOperation().execute() }
-            .flatMap { comics ->
+            .map {
                 view.setState(StartContract.State.DOWNLOADING_COMICS)
-                comics
-                    .map { GetComicPanelsOperation(it).execute() }
-                    .toList()
-                    .let { Observable.zip(it) { } }
+                it
+            }
+            .flatMap { comics ->
+                var sequentialDownload: Observable<Any> = Observable.just(Unit)
+                comics.forEach { comic ->
+                    sequentialDownload = sequentialDownload.flatMap {
+                        GetComicPanelsOperation(comic).execute()
+                    }
+                }
+                sequentialDownload
             }
             .onErrorReturn {
                 view.setState(StartContract.State.CONNECTION_ERROR)
