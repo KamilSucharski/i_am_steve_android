@@ -1,0 +1,63 @@
+apply plugin: "com.android.application"
+apply from: "../config/android_module_shared_config.gradle"
+
+android {
+    defaultConfig {
+        applicationId = "com.iamsteve.android"
+        manifestPlaceholders.applicationName = "i am steve"
+        project.archivesBaseName = "i-am-steve-${versionName}".toString()
+    }
+
+    buildTypes {
+        release {
+            proguardFile getDefaultProguardFile("proguard-android-optimize.txt")
+            proguardFiles fileTree(dir: "../proguard", include: ["*.pro"]).asList().toArray()
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(project.KEYSTORE_PATH)
+            storePassword readFile(project.KEYSTORE_PASSWORD_FILE_PATH)
+            keyAlias readFile(project.KEYSTORE_ALIAS_FILE_PATH)
+            keyPassword readFile(project.KEYSTORE_ALIAS_PASSWORD_FILE_PATH)
+            v1SigningEnabled = true
+            v2SigningEnabled = true
+        }
+    }
+}
+
+dependencies {
+    implementation project(path: ":domain")
+    implementation project(path: ":data")
+
+    //androidx
+    implementation "androidx.core:core-ktx:1.3.2"
+    implementation "androidx.appcompat:appcompat:1.2.0"
+
+    //koin
+    implementation "org.koin:koin-android:2.1.0"
+
+    //rx
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.13"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
+    implementation "com.jakewharton.rxbinding3:rxbinding:3.0.0"
+
+    //networking
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
+    implementation "com.squareup.okhttp3:okhttp:4.9.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+}
+
+String readFile(String filePath) {
+    File file = file(filePath)
+    if (file.exists()) {
+        return file.getText("UTF-8")
+    } else {
+        println("FILE MISSING: " + filePath)
+        return ""
+    }
+}

@@ -1,0 +1,3 @@
+-ignorewarnings
+-dontwarn com.iamsteve.**
+-keepclassmembers class com.iamsteve.** { *; }
