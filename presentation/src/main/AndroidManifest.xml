@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.iamsteve.android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -10,14 +12,25 @@
         android:label="${applicationName}"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IAmSteve">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.App">
+        <activity
+            android:name=".view.start.StartActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity
+            android:name=".view.comic.ComicGalleryActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.archive.ArchiveActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+    </application>
 </manifest>
