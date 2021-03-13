@@ -3,7 +3,6 @@ package com.iamsteve.domain.view.start
 import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.operation.GetComicsOperation
 import com.iamsteve.domain.operation.PreloadComicsOperation
-import com.iamsteve.domain.util.Logger
 import com.iamsteve.domain.util.extension.handleError
 import com.iamsteve.domain.view.base.Presenter
 import io.reactivex.Observable

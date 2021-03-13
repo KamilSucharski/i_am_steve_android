@@ -12,6 +12,7 @@ import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.view.comic.ComicGalleryContract
 import com.jakewharton.rxbinding3.view.clicks
 import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -20,7 +21,7 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
     layoutResource = R.layout.activity_comic_gallery
 ), ComicGalleryContract.View {
 
-    override val pageChangedTrigger = PublishSubject.create<Int>()
+    override val pageChangedTrigger = BehaviorSubject.create<Int>()
     override val previousButtonTrigger: Observable<Unit>
         get() = binding.previousButton.clicks().share()
     override val archiveButtonTrigger: Observable<Unit>
@@ -36,6 +37,8 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
         binding.viewPager.run {
             registerOnPageChangeCallback(OnPageChangedSubject(pageChangedTrigger))
             adapter = ComicFragmentAdapter(this@ComicGalleryActivity, comics)
+            binding.viewPager.setCurrentItem(comics.lastIndex, false)
+            setButtonVisibility(previousButtonVisible = true, nextButtonVisible = false)
         }
     }
 
