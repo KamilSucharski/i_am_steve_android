@@ -39,7 +39,7 @@ class Persistence(
         }
     }
 
-    private fun loadField(field: Field,instance: Any,bundle: Bundle) {
+    private fun loadField(field: Field, instance: Any, bundle: Bundle) {
         try {
             val isAccessible = field.isAccessible
             field.isAccessible = true

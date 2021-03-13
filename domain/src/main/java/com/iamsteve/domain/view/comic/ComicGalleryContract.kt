@@ -7,7 +7,7 @@ import com.iamsteve.domain.view.base.BaseView
 import io.reactivex.Observable
 
 interface ComicGalleryContract {
-    interface View: BaseView<Presenter>, ErrorHandling {
+    interface View : BaseView<Presenter>, ErrorHandling {
         val pageChangedTrigger: Observable<Int>
         val previousButtonTrigger: Observable<Unit>
         val archiveButtonTrigger: Observable<Unit>
@@ -21,5 +21,5 @@ interface ComicGalleryContract {
         fun navigateToArchiveScreen()
     }
 
-    interface Presenter: BasePresenter<View>
+    interface Presenter : BasePresenter<View>
 }

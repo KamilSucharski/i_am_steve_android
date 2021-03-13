@@ -16,13 +16,15 @@ import com.iamsteve.domain.view.comic.ComicContract
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class ComicFragment : BaseFragment<ComicContract.View, ComicContract.Presenter, FragmentComicBinding>(
-    layoutResource = R.layout.fragment_comic
-), ComicContract.View {
+class ComicFragment :
+    BaseFragment<ComicContract.View, ComicContract.Presenter, FragmentComicBinding>(
+        layoutResource = R.layout.fragment_comic
+    ), ComicContract.View {
 
-    override val comic: Comic get() = arguments
-        ?.getSerializable(Consts.EXTRA_COMIC) as? Comic
-        ?: throw MissingArgumentException()
+    override val comic: Comic
+        get() = arguments
+            ?.getSerializable(Consts.EXTRA_COMIC) as? Comic
+            ?: throw MissingArgumentException()
     override val presenter: ComicContract.Presenter by inject()
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ activity }) }
 

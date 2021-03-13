@@ -26,10 +26,10 @@ class ComicRepositoryLocal(
     }
 
     override fun saveComicPanel(comicNumber: Int, panelNumber: Int, byteArray: ByteArray): File {
-       return localStorage.putFile(
-           key = String.format(Consts.COMIC_PANEL_FILE_NAME_FORMAT, comicNumber, panelNumber),
-           byteArray = byteArray
-       )
+        return localStorage.putFile(
+            key = String.format(Consts.COMIC_PANEL_FILE_NAME_FORMAT, comicNumber, panelNumber),
+            byteArray = byteArray
+        )
     }
 
     override fun loadComicPanel(comicNumber: Int, panelNumber: Int): File? {

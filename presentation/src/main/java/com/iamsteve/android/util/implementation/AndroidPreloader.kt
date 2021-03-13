@@ -2,12 +2,12 @@ package com.iamsteve.android.util.implementation
 
 import android.content.res.AssetManager
 import com.google.gson.Gson
-import com.iamsteve.domain.model.Comic
-import com.iamsteve.domain.util.Consts
-import java.io.BufferedReader
 import com.iamsteve.android.util.extension.fromJson
 import com.iamsteve.data.util.LocalStorage
+import com.iamsteve.domain.model.Comic
+import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.Preloader
+import java.io.BufferedReader
 
 class AndroidPreloader(
     private val assetManager: AssetManager,

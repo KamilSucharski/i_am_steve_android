@@ -2,8 +2,8 @@ package com.iamsteve.android.util.implementation
 
 import android.app.Activity
 import android.widget.Toast
-import com.iamsteve.domain.util.error.ErrorHandler
 import com.iamsteve.domain.util.Logger
+import com.iamsteve.domain.util.error.ErrorHandler
 
 class ToastErrorHandler(
     private val activitySupplier: () -> Activity?,

@@ -5,16 +5,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.iamsteve.android.R
 
 class SimpleAdapter : RecyclerView.Adapter<SimpleViewHolder>(), Adapter {
 
     override var items: List<Adapter.Item<out ViewDataBinding>> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
-        val item = items.firstOrNull { it.viewTypeResource == viewType } ?: throw Adapter.ViewHolderError()
+        val item =
+            items.firstOrNull { it.viewTypeResource == viewType } ?: throw Adapter.ViewHolderError()
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, item.layoutResource, parent, false)
+        val binding =
+            DataBindingUtil.inflate<ViewDataBinding>(inflater, item.layoutResource, parent, false)
         return SimpleViewHolder(binding)
     }
 

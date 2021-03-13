@@ -1,23 +1,20 @@
 package com.iamsteve.android.util.implementation
 
 import android.util.Log
+import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.Logger
 
 class AndroidLogger : Logger {
 
-    companion object {
-        private const val TAG = "IAMSTEVE"
-    }
-
     override fun debug(string: String) {
-        Log.d(TAG, string)
+        Log.d(Consts.TAG, string)
     }
 
     override fun error(string: String) {
-        Log.e(TAG, string)
+        Log.e(Consts.TAG, string)
     }
 
     override fun error(string: String, throwable: Throwable) {
-        Log.e(TAG, string, throwable)
+        Log.e(Consts.TAG, string, throwable)
     }
 }

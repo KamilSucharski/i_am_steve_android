@@ -5,7 +5,7 @@ import com.iamsteve.domain.util.extension.handleError
 import com.iamsteve.domain.view.base.Presenter
 import io.reactivex.rxkotlin.addTo
 
-class ArchivePresenter: Presenter<ArchiveContract.View>(), ArchiveContract.Presenter {
+class ArchivePresenter : Presenter<ArchiveContract.View>(), ArchiveContract.Presenter {
 
     override fun subscribe(view: ArchiveContract.View) {
         GetComicsOperation()

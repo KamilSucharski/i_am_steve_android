@@ -7,7 +7,8 @@ import com.iamsteve.domain.view.base.Presenter
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
 
-class ComicGalleryPresenter: Presenter<ComicGalleryContract.View>(), ComicGalleryContract.Presenter {
+class ComicGalleryPresenter : Presenter<ComicGalleryContract.View>(),
+    ComicGalleryContract.Presenter {
 
     override fun subscribe(view: ComicGalleryContract.View) {
         val comicsSubject = BehaviorSubject.create<List<Comic>>()

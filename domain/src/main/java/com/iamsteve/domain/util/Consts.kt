@@ -2,6 +2,7 @@ package com.iamsteve.domain.util
 
 object Consts {
     const val EMPTY = ""
+    const val TAG = "IAMSTEVE"
     const val COMIC_METADATA_FILE_NAME = "comics.json"
     const val COMIC_PANEL_FILE_NAME_FORMAT = "%d_%d.png"
 

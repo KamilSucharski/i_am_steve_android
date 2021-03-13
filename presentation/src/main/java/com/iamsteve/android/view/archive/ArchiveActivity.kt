@@ -2,7 +2,6 @@ package com.iamsteve.android.view.archive
 
 import android.app.Activity
 import android.app.ActivityOptions
-import android.content.Context
 import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,9 +19,10 @@ import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
-    layoutResource = R.layout.activity_archive
-), ArchiveContract.View {
+class ArchiveActivity :
+    BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
+        layoutResource = R.layout.activity_archive
+    ), ArchiveContract.View {
 
     override val comicTrigger = PublishSubject.create<Comic>()
     override val presenter: ArchiveContract.Presenter by inject()

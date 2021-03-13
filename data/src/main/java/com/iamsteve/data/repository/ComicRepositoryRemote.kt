@@ -20,11 +20,13 @@ class ComicRepositoryRemote(
 
     override fun getComicPanel(comicNumber: Int, panelNumber: Int): Observable<ByteArray> {
         return comicAPI
-            .getComicPanel(String.format(
-                Consts.COMIC_PANEL_FILE_NAME_FORMAT,
-                comicNumber,
-                panelNumber
-            ))
+            .getComicPanel(
+                String.format(
+                    Consts.COMIC_PANEL_FILE_NAME_FORMAT,
+                    comicNumber,
+                    panelNumber
+                )
+            )
             .map { it.bytes() }
     }
 }
