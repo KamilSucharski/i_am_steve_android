@@ -1,7 +1,7 @@
 package com.iamsteve.android.view.archive.mapper
 
 import com.iamsteve.android.util.adapter.Adapter
-import com.iamsteve.android.view.archive.list.ComicArchiveItem
+import com.iamsteve.android.view.list.ComicArchiveItem
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Mapper
 

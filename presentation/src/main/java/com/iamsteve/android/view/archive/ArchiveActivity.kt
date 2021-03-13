@@ -19,10 +19,9 @@ import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class ArchiveActivity :
-    BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
-        layoutResource = R.layout.activity_archive
-    ), ArchiveContract.View {
+class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
+    layoutResource = R.layout.activity_archive
+), ArchiveContract.View {
 
     override val comicTrigger = PublishSubject.create<Comic>()
     override val presenter: ArchiveContract.Presenter by inject()

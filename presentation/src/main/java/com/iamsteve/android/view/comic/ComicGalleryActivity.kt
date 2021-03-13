@@ -18,10 +18,9 @@ import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class ComicGalleryActivity :
-    BaseActivity<ComicGalleryContract.View, ComicGalleryContract.Presenter, ActivityComicGalleryBinding>(
-        layoutResource = R.layout.activity_comic_gallery
-    ), ComicGalleryContract.View {
+class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGalleryContract.Presenter, ActivityComicGalleryBinding>(
+    layoutResource = R.layout.activity_comic_gallery
+), ComicGalleryContract.View {
 
     override val pageChangedTrigger = PublishSubject.create<Int>()
     override val comicSelectedInArchiveTrigger = PublishSubject.create<Comic>()

@@ -9,10 +9,9 @@ import com.iamsteve.domain.view.start.StartContract
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class StartActivity :
-    BaseActivity<StartContract.View, StartContract.Presenter, ActivityStartBinding>(
-        layoutResource = R.layout.activity_start
-    ), StartContract.View {
+class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, ActivityStartBinding>(
+    layoutResource = R.layout.activity_start
+), StartContract.View {
 
     override val presenter: StartContract.Presenter by inject()
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ this }) }

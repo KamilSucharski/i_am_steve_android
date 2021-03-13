@@ -4,7 +4,6 @@ import com.iamsteve.domain.util.RxSchedulers
 import com.iamsteve.domain.util.error.ErrorHandler
 import io.reactivex.Observable
 
-
 fun <T> Observable<T>.catchError(handler: (Throwable) -> Observable<T>): Observable<T> {
     return onErrorResumeNext(handler)
 }

@@ -1,4 +1,4 @@
-package com.iamsteve.android.view.archive.list
+package com.iamsteve.android.view.list
 
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ItemComicArchiveBinding
