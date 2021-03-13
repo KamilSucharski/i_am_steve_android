@@ -1,5 +1,7 @@
 package com.iamsteve.android.view.comic
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
@@ -36,6 +38,14 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
         get() = binding.viewPager.currentItem
     override val presenter: ComicGalleryContract.Presenter by inject()
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ this }) }
+
+    companion object {
+        fun start(activity: Activity) {
+            val intent = Intent(activity, ComicGalleryActivity::class.java)
+            activity.startActivity(intent)
+            activity.finish()
+        }
+    }
 
     override fun displayComics(comics: List<Comic>) {
         binding.viewPager.run {

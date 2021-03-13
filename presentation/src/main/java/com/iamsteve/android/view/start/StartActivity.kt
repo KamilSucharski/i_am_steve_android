@@ -1,7 +1,5 @@
 package com.iamsteve.android.view.start
 
-import android.content.Intent
-import android.widget.Toast
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityStartBinding
 import com.iamsteve.android.util.implementation.ToastErrorHandler
@@ -23,7 +21,6 @@ class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, 
     }
 
     override fun navigateToComicGalleryScreen() {
-        startActivity(Intent(this, ComicGalleryActivity::class.java))
-        finish()
+        ComicGalleryActivity.start(this)
     }
 }

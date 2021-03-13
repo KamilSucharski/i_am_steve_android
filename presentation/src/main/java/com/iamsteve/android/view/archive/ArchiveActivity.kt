@@ -1,6 +1,7 @@
 package com.iamsteve.android.view.archive
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +34,11 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
     companion object {
         fun startForResult(activity: Activity) {
             val intent = Intent(activity, ArchiveActivity::class.java)
-            activity.startActivityForResult(intent, Consts.REQUEST_CODE_ARCHIVE_COMIC)
+            activity.startActivityForResult(
+                intent,
+                Consts.REQUEST_CODE_ARCHIVE_COMIC,
+                ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
+            )
         }
 
         fun parseResult(requestCode: Int, resultCode: Int, data: Intent?): Comic? {
