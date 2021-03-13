@@ -10,7 +10,7 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/icon"
         android:label="${applicationName}"
-        android:roundIcon="@mipmap/icon_round"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity

@@ -24,7 +24,7 @@ class AndroidPreloader(
             .open(Consts.COMIC_METADATA_FILE_NAME)
             .bufferedReader()
             .use(BufferedReader::readText)
-            .let { gson.fromJson<ArrayList<Comic>>(it) }
+            .let { gson.fromJson(it) }
 
         comics.forEach { comic ->
             for (panelNumber in 1..4) {

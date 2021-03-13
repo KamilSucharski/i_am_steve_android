@@ -9,28 +9,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/middle_guideline"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <ProgressBar
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
             android:indeterminateDrawable="@drawable/rotate_icon"
             android:indeterminateOnly="true"
+            app:layout_constraintBottom_toTopOf="@id/middle_guideline"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintWidth_percent="0.5" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/body_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceHeadline1"
+            android:layout_marginTop="16dp"
             android:text="@string/start_body_without_progress"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="?attr/textAppearanceHeadline1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/progress_bar"
-            tools:text="@string/start_body_with_progress"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/middle_guideline"
+            tools:text="@string/start_body_with_progress" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

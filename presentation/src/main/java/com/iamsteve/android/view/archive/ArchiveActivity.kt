@@ -12,13 +12,10 @@ import com.iamsteve.android.util.adapter.SimpleAdapter
 import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.archive.mapper.ArchiveItemMapper
 import com.iamsteve.android.view.base.BaseActivity
-import com.iamsteve.android.view.comic.ComicGalleryActivity
-import com.iamsteve.android.view.comic.mapper.ComicItemMapper
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.map
 import com.iamsteve.domain.view.archive.ArchiveContract
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
