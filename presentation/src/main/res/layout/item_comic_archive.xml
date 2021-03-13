@@ -5,32 +5,21 @@
 
     <data />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
+        android:layout_marginBottom="1dp"
+        android:background="@color/element_color"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="12dp"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="#102 Windblows Subsystem for Pingux (24.08.2020)"
+        tools:ignore="UnusedAttribute" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textAppearance="?attr/textAppearanceBody1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="#102 Windblows Subsystem for Pingux (24.08.2020)" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

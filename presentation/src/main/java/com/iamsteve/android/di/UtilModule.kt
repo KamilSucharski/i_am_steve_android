@@ -1,6 +1,7 @@
 package com.iamsteve.android.di
 
 import android.content.Context.MODE_PRIVATE
+import com.iamsteve.android.BuildConfig
 import com.iamsteve.android.util.implementation.AndroidLocalStorage
 import com.iamsteve.android.util.implementation.AndroidLogger
 import com.iamsteve.android.util.implementation.AndroidPreloader
@@ -32,6 +33,7 @@ val utilModule = module {
     factory { Persistence(get()) }
     factory<Preloader> {
         AndroidPreloader(
+            currentVersion = BuildConfig.VERSION_CODE,
             assetManager = androidContext().assets,
             localStorage = get(),
             gson = get()

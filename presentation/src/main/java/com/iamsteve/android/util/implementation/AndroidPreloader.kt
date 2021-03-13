@@ -10,13 +10,15 @@ import com.iamsteve.domain.util.Preloader
 import java.io.BufferedReader
 
 class AndroidPreloader(
+    private val currentVersion: Int,
     private val assetManager: AssetManager,
     private val localStorage: LocalStorage,
     private val gson: Gson
 ) : Preloader {
 
     override fun preload() {
-        if (localStorage.getBoolean(Consts.KEY_PRELOAD_COMPLETED) == true) {
+        val previousPreloadVersion = localStorage.getInt(Consts.KEY_PRELOAD_VERSION) ?: 0
+        if (previousPreloadVersion >= currentVersion) {
             return
         }
 
@@ -41,6 +43,6 @@ class AndroidPreloader(
         }
 
         localStorage.putSerializable(Consts.KEY_COMIC_LIST, comics)
-        localStorage.putBoolean(Consts.KEY_PRELOAD_COMPLETED, true)
+        localStorage.putInt(Consts.KEY_PRELOAD_VERSION, currentVersion)
     }
 }

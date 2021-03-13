@@ -9,6 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadeScrollbars="false"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="50dp"
+        android:requiresFadingEdge="vertical"
         android:scrollbars="vertical"
         tools:listitem="@layout/item_comic_archive" />
 
