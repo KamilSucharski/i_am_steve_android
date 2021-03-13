@@ -1,5 +1,6 @@
 package com.iamsteve.data.di
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.iamsteve.data.api.ComicAPI
 import io.reactivex.schedulers.Schedulers
@@ -16,35 +17,28 @@ fun apiModule(
     isNetworkLoggingAllowed: Boolean
 ) = module {
 
+    single<Gson> { GsonBuilder().serializeNulls().setLenient().create() }
+
     single<ComicAPI> {
-        OkHttpClient.Builder()
-            .setTimeouts()
-            .addLoggingInterceptor(isNetworkLoggingAllowed)
+        val okHttpClient = OkHttpClient
+            .Builder()
+            .connectTimeout(2, TimeUnit.MINUTES)
+            .writeTimeout(2, TimeUnit.MINUTES)
+            .readTimeout(2, TimeUnit.MINUTES)
+            .also { builder ->
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+                    .takeIf { isNetworkLoggingAllowed }
+                    ?.apply { builder.addInterceptor(this) }
+            }
             .build()
-            .let { createWebService(it, apiUrl) }
+
+        Retrofit
+            .Builder()
+            .client(okHttpClient)
+            .baseUrl(apiUrl)
+            .addConverterFactory(GsonConverterFactory.create(get()))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+            .build()
             .create(ComicAPI::class.java)
     }
-}
-
-fun createWebService(okHttpClient: OkHttpClient, baseUrl: String): Retrofit {
-    return Retrofit.Builder()
-        .client(okHttpClient)
-        .baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().setLenient().create()))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-        .build()
-}
-
-fun OkHttpClient.Builder.addLoggingInterceptor(isNetworkLoggingAllowed: Boolean): OkHttpClient.Builder {
-    return also { builder ->
-        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            .takeIf { isNetworkLoggingAllowed }
-            ?.apply { builder.addInterceptor(this) }
-    }
-}
-
-fun OkHttpClient.Builder.setTimeouts(): OkHttpClient.Builder {
-    return connectTimeout(2, TimeUnit.MINUTES)
-        .writeTimeout(2, TimeUnit.MINUTES)
-        .readTimeout(2, TimeUnit.MINUTES)
 }

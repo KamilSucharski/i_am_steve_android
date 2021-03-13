@@ -4,24 +4,30 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.iamsteve.data.util.LocalStorage
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.Optional
 import java.io.File
 import java.io.Serializable
 import java.lang.reflect.Type
 
 class AndroidLocalStorage(
     private val sharedPreferences: SharedPreferences,
-    private val filesDirectory: File
+    private val filesDirectory: File,
+    private val gson: Gson
 ) : LocalStorage {
 
-    private val gson = Gson()
-
-    override fun contains(key: String): Boolean {
+    override fun containsEntry(key: String): Boolean {
         return sharedPreferences.contains(key)
     }
 
-    override fun remove(key: String) {
+    override fun containsFile(key: String): Boolean {
+        return File(filesDirectory, key).exists()
+    }
+
+    override fun removeEntry(key: String) {
         sharedPreferences.edit().remove(key).apply()
+    }
+
+    override fun removeFile(key: String) {
+        File(filesDirectory, key).delete()
     }
 
     override fun putBoolean(key: String, boolean: Boolean): Boolean {
@@ -56,53 +62,53 @@ class AndroidLocalStorage(
         return file
     }
 
-    override fun getBoolean(key: String): Optional<Boolean> {
+    override fun getBoolean(key: String): Boolean? {
         return if (sharedPreferences.contains(key)) {
-            Optional.of(sharedPreferences.getBoolean(key, false))
+            sharedPreferences.getBoolean(key, false)
         } else {
-            Optional.empty()
+            null
         }
     }
 
-    override fun getInt(key: String): Optional<Int> {
+    override fun getInt(key: String): Int? {
         return if (sharedPreferences.contains(key)) {
-            Optional.of(sharedPreferences.getInt(key, 0))
+            sharedPreferences.getInt(key, 0)
         } else {
-            Optional.empty()
+            null
         }
     }
 
-    override fun getLong(key: String): Optional<Long> {
+    override fun getLong(key: String): Long? {
         return if (sharedPreferences.contains(key)) {
-            Optional.of(sharedPreferences.getLong(key, 0))
+            sharedPreferences.getLong(key, 0)
         } else {
-            Optional.empty()
+            null
         }
     }
 
-    override fun getString(key: String): Optional<String> {
+    override fun getString(key: String): String? {
         return if (sharedPreferences.contains(key)) {
-            Optional.of(sharedPreferences.getString(key, Consts.EMPTY))
+            sharedPreferences.getString(key, Consts.EMPTY)
         } else {
-            Optional.empty()
+            null
         }
     }
 
-    override fun <T> getSerializable(key: String, type: Type): Optional<T> {
+    override fun <T> getSerializable(key: String, type: Type): T? {
         return if (sharedPreferences.contains(key)) {
             val serializedValue = sharedPreferences.getString(key, Consts.EMPTY)
-            Optional.of(gson.fromJson(serializedValue, type))
+            gson.fromJson(serializedValue, type)
         } else {
-            Optional.empty()
+            null
         }
     }
 
-    override fun getFile(key: String): Optional<File> {
+    override fun getFile(key: String): File? {
         val file = File(filesDirectory, key)
         return if (file.exists()) {
-            Optional.of(file)
+            file
         } else {
-            Optional.empty()
+            null
         }
     }
 }

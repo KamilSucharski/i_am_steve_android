@@ -26,12 +26,7 @@ class GetComicsOperation : Operation<Observable<List<Comic>>>, KoinComponent {
             }
             .onErrorReturn {
                 logger.error("Error getting comics", it)
-                val existingComics = comicRepositoryLocal.loadComics()
-                if (existingComics.isPresent) {
-                    existingComics.get()
-                } else {
-                    emptyList()
-                }
+                comicRepositoryLocal.loadComics() ?: emptyList()
             }
             .schedule(schedulers)
     }

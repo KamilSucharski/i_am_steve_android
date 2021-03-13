@@ -4,7 +4,6 @@ import com.iamsteve.data.util.LocalStorage
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.Optional
 import java.io.File
 
 class ComicRepositoryLocal(
@@ -18,7 +17,7 @@ class ComicRepositoryLocal(
         )
     }
 
-    override fun loadComics(): Optional<List<Comic>> {
+    override fun loadComics(): List<Comic>? {
         return localStorage.getSerializable(
             key = Consts.KEY_COMIC_LIST,
             type = ArrayList::class.java
@@ -32,9 +31,19 @@ class ComicRepositoryLocal(
        )
     }
 
-    override fun loadComicPanel(comicNumber: Int, panelNumber: Int): Optional<File> {
+    override fun loadComicPanel(comicNumber: Int, panelNumber: Int): File? {
         return localStorage.getFile(
             key = String.format(Consts.COMIC_PANEL_FILE_NAME_FORMAT, comicNumber, panelNumber)
         )
+    }
+
+    override fun containsComic(comicNumber: Int): Boolean {
+        for (panelNumber in 1..4) {
+            val fileName = String.format(Consts.COMIC_PANEL_FILE_NAME_FORMAT, comicNumber, panelNumber)
+            if (!localStorage.containsFile(fileName)) {
+                return false
+            }
+        }
+        return true
     }
 }

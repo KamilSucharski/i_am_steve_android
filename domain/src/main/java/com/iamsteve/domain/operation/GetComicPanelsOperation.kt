@@ -21,6 +21,17 @@ class GetComicPanelsOperation(
     private val comicRepositoryRemote by inject<ComicRepository.Remote>()
 
     override fun execute(): Observable<ComicPanels> {
+        if (comicRepositoryLocal.containsComic(comic.number)) {
+            return Observable.fromCallable {
+                ComicPanels(
+                    panel1 = comicRepositoryLocal.loadComicPanel(comic.number, 1)!!,
+                    panel2 = comicRepositoryLocal.loadComicPanel(comic.number, 2)!!,
+                    panel3 = comicRepositoryLocal.loadComicPanel(comic.number, 3)!!,
+                    panel4 = comicRepositoryLocal.loadComicPanel(comic.number, 4)!!
+                )
+            }
+        }
+
         val panelObservables = mutableListOf<Observable<File>>()
         for (panelNumber in 1..4) {
             comicRepositoryRemote
