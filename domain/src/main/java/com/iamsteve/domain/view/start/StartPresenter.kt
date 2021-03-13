@@ -12,34 +12,27 @@ import io.reactivex.rxkotlin.addTo
 class StartPresenter : Presenter<StartContract.View>(), StartContract.Presenter {
 
     override fun subscribe(view: StartContract.View) {
-
-        val preloadComics = PreloadComicsOperation().execute()
-        val downloadTrigger = view.downloadTrigger.startWith(Unit)
-
-        Observable
-            .combineLatest(preloadComics, downloadTrigger) { _, _ -> }
+        PreloadComicsOperation()
+            .execute()
             .flatMap {
-                view.setState(StartContract.State.DOWNLOADING_COMIC_LIST)
                 GetComicsOperation()
                     .execute()
-                    .handleError(view)
+                    .handleError(view.errorHandler)
             }
             .flatMap { comics ->
-                view.setState(StartContract.State.DOWNLOADING_COMIC_PANELS)
                 var sequentialDownload: Observable<Any> = Observable.just(Unit)
                 comics.forEach { comic ->
                     sequentialDownload = sequentialDownload.flatMap {
                         GetComicPanelsOperation(comic)
                             .execute()
-                            .handleError(view)
+                            .map { view.setProgress(comic.number, comics.size) }
+                            .handleError(view.errorHandler)
                     }
                 }
                 sequentialDownload
             }
-            .handleError(view)
-            .subscribe {
-                view.navigateToComicGalleryScreen()
-            }
+            .handleError(view.errorHandler)
+            .subscribe { view.navigateToComicGalleryScreen() }
             .addTo(disposables)
     }
 }

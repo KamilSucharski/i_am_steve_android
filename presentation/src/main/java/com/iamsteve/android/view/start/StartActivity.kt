@@ -3,36 +3,24 @@ package com.iamsteve.android.view.start
 import android.widget.Toast
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityStartBinding
+import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.base.BaseActivity
-import com.iamsteve.android.view.start.mapper.StartStateToBodyTextResourceMapper
-import com.iamsteve.domain.util.Logger
-import com.iamsteve.domain.util.map
 import com.iamsteve.domain.view.start.StartContract
-import com.jakewharton.rxbinding3.view.clicks
-import io.reactivex.Observable
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, ActivityStartBinding>(
     layoutResource = R.layout.activity_start
 ), StartContract.View {
 
-    override val downloadTrigger: Observable<Unit> get() = binding.bodyTextView.clicks().share() //todo
     override val presenter: StartContract.Presenter by inject()
-    private val logger by inject<Logger>()
+    override val errorHandler: ToastErrorHandler by inject { parametersOf({ this }) }
 
-    override fun setState(state: StartContract.State) {
-        state
-            .map(StartStateToBodyTextResourceMapper())
-            .run(binding.bodyTextView::setText)
+    override fun setProgress(done: Int, all: Int) {
+        binding.bodyTextView.text = getString(R.string.start_body_with_progress, done, all)
     }
 
     override fun navigateToComicGalleryScreen() {
         Toast.makeText(this, "nav", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun handleError(throwable: Throwable): Boolean {
-        logger.error("Error downloading comics", throwable)
-        setState(StartContract.State.ERROR)
-        return true
     }
 }
