@@ -1,5 +1,6 @@
 package com.iamsteve.data.repository
 
+import com.google.gson.reflect.TypeToken
 import com.iamsteve.data.util.LocalStorage
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
@@ -20,7 +21,7 @@ class ComicRepositoryLocal(
     override fun loadComics(): List<Comic>? {
         return localStorage.getSerializable(
             key = Consts.KEY_COMIC_LIST,
-            type = ArrayList::class.java
+            type = object : TypeToken<List<Comic>>() {}.type
         )
     }
 
@@ -35,15 +36,5 @@ class ComicRepositoryLocal(
         return localStorage.getFile(
             key = String.format(Consts.COMIC_PANEL_FILE_NAME_FORMAT, comicNumber, panelNumber)
         )
-    }
-
-    override fun containsComic(comicNumber: Int): Boolean {
-        for (panelNumber in 1..4) {
-            val fileName = String.format(Consts.COMIC_PANEL_FILE_NAME_FORMAT, comicNumber, panelNumber)
-            if (!localStorage.containsFile(fileName)) {
-                return false
-            }
-        }
-        return true
     }
 }

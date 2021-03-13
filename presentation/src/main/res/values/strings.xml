@@ -1,7 +1,8 @@
 <resources>
     <!-- Start -->
-    <string name="start_body_downloading_comics_metadata">Downloading comics metadata…</string>
-    <string name="start_body_downloading_comics">Downloading comics…</string>
-    <string name="start_body_connection_error">Could not connect to server</string>
+    <string name="start_body_preloading_comics">Preloading comics…</string>
+    <string name="start_body_downloading_comic_list">Downloading comic list…</string>
+    <string name="start_body_downloading_comic_panels">Downloading comic panels…</string>
+    <string name="start_body_error">Could not connect to server</string>
     <string name="start_button_try_again">try again</string>
 </resources>

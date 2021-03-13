@@ -5,6 +5,7 @@ import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityStartBinding
 import com.iamsteve.android.view.base.BaseActivity
 import com.iamsteve.android.view.start.mapper.StartStateToBodyTextResourceMapper
+import com.iamsteve.domain.util.Logger
 import com.iamsteve.domain.util.map
 import com.iamsteve.domain.view.start.StartContract
 import com.jakewharton.rxbinding3.view.clicks
@@ -17,6 +18,7 @@ class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, 
 
     override val downloadTrigger: Observable<Unit> get() = binding.bodyTextView.clicks().share() //todo
     override val presenter: StartContract.Presenter by inject()
+    private val logger by inject<Logger>()
 
     override fun setState(state: StartContract.State) {
         state
@@ -26,5 +28,11 @@ class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, 
 
     override fun navigateToComicGalleryScreen() {
         Toast.makeText(this, "nav", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun handleError(throwable: Throwable): Boolean {
+        logger.error("Error downloading comics", throwable)
+        setState(StartContract.State.ERROR)
+        return true
     }
 }

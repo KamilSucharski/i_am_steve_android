@@ -97,7 +97,7 @@ class AndroidLocalStorage(
     override fun <T> getSerializable(key: String, type: Type): T? {
         return if (sharedPreferences.contains(key)) {
             val serializedValue = sharedPreferences.getString(key, Consts.EMPTY)
-            gson.fromJson(serializedValue, type)
+            gson.fromJson<T>(serializedValue, type)
         } else {
             null
         }

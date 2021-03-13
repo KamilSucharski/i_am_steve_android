@@ -3,6 +3,7 @@ package com.iamsteve.data.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.iamsteve.data.api.ComicAPI
+import com.iamsteve.data.interceptor.ErrorInterceptor
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,6 +26,7 @@ fun apiModule(
             .connectTimeout(2, TimeUnit.MINUTES)
             .writeTimeout(2, TimeUnit.MINUTES)
             .readTimeout(2, TimeUnit.MINUTES)
+            .addInterceptor(ErrorInterceptor())
             .also { builder ->
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
                     .takeIf { isNetworkLoggingAllowed }

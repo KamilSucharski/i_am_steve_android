@@ -1,11 +1,13 @@
 package com.iamsteve.domain.operation
 
+import com.iamsteve.domain.exception.NoComicsException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Operation
 import com.iamsteve.domain.util.RxSchedulers
 import com.iamsteve.domain.util.extension.schedule
 import com.iamsteve.domain.util.Logger
+import com.iamsteve.domain.util.extension.catchError
 import io.reactivex.Observable
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -24,9 +26,12 @@ class GetComicsOperation : Operation<Observable<List<Comic>>>, KoinComponent {
                 comicRepositoryLocal.saveComics(ArrayList(it))
                 it
             }
-            .onErrorReturn {
-                logger.error("Error getting comics", it)
-                comicRepositoryLocal.loadComics() ?: emptyList()
+            .catchError { throwable ->
+                logger.error("Error getting comics", throwable)
+                comicRepositoryLocal
+                    .loadComics()
+                    ?.let { Observable.just(it) }
+                    ?: Observable.error(NoComicsException())
             }
             .schedule(schedulers)
     }

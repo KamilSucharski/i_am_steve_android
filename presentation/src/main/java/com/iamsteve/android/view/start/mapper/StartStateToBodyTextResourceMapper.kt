@@ -7,8 +7,9 @@ import com.iamsteve.domain.view.start.StartContract
 class StartStateToBodyTextResourceMapper : Mapper<StartContract.State, Int> {
 
     override fun StartContract.State.map() = when (this) {
-        StartContract.State.DOWNLOADING_COMICS_METADATA -> R.string.start_body_downloading_comics_metadata
-        StartContract.State.DOWNLOADING_COMICS -> R.string.start_body_downloading_comics
-        StartContract.State.CONNECTION_ERROR -> R.string.start_body_connection_error
+        StartContract.State.PRELOADING_COMICS -> R.string.start_body_preloading_comics
+        StartContract.State.DOWNLOADING_COMIC_LIST -> R.string.start_body_downloading_comic_list
+        StartContract.State.DOWNLOADING_COMIC_PANELS -> R.string.start_body_downloading_comic_panels
+        StartContract.State.ERROR -> R.string.start_body_error
     }
 }

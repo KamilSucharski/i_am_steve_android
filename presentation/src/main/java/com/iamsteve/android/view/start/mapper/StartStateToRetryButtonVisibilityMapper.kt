@@ -6,7 +6,7 @@ import com.iamsteve.domain.view.start.StartContract
 class StartStateToRetryButtonVisibilityMapper : Mapper<StartContract.State, Boolean> {
 
     override fun StartContract.State.map() = when (this) {
-        StartContract.State.CONNECTION_ERROR -> true
+        StartContract.State.ERROR -> true
         else -> false
     }
 }

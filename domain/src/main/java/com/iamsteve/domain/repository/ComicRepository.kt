@@ -11,7 +11,6 @@ interface ComicRepository {
         fun loadComics(): List<Comic>?
         fun saveComicPanel(comicNumber: Int, panelNumber: Int, byteArray: ByteArray): File
         fun loadComicPanel(comicNumber: Int, panelNumber: Int): File?
-        fun containsComic(comicNumber: Int): Boolean
     }
 
     interface Remote {

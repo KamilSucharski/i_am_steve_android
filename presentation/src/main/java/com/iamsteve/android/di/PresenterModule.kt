@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val presenterModule = module {
     // Start
-    factory<StartContract.Presenter> { StartPresenter(get()) }
+    factory<StartContract.Presenter> { StartPresenter() }
 
     // Comic
     factory<ComicGalleryContract.Presenter> { ComicGalleryPresenter() }

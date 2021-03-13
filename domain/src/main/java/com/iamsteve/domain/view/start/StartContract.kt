@@ -1,11 +1,12 @@
 package com.iamsteve.domain.view.start
 
+import com.iamsteve.domain.util.error.ErrorHandler
 import com.iamsteve.domain.view.base.BasePresenter
 import com.iamsteve.domain.view.base.BaseView
 import io.reactivex.Observable
 
 interface StartContract {
-    interface View: BaseView<Presenter> {
+    interface View: BaseView<Presenter>, ErrorHandler {
         val downloadTrigger: Observable<Unit>
 
         fun setState(state: State)
@@ -15,8 +16,9 @@ interface StartContract {
     interface Presenter: BasePresenter<View>
 
     enum class State {
-        DOWNLOADING_COMICS_METADATA,
-        DOWNLOADING_COMICS,
-        CONNECTION_ERROR
+        PRELOADING_COMICS,
+        DOWNLOADING_COMIC_LIST,
+        DOWNLOADING_COMIC_PANELS,
+        ERROR
     }
 }

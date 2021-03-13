@@ -4,39 +4,39 @@ import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.operation.GetComicsOperation
 import com.iamsteve.domain.operation.PreloadComicsOperation
 import com.iamsteve.domain.util.Logger
+import com.iamsteve.domain.util.extension.handleError
 import com.iamsteve.domain.view.base.Presenter
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 
-class StartPresenter(
-    private val logger: Logger
-) : Presenter<StartContract.View>(), StartContract.Presenter {
+class StartPresenter : Presenter<StartContract.View>(), StartContract.Presenter {
 
     override fun subscribe(view: StartContract.View) {
-        view.setState(StartContract.State.DOWNLOADING_COMICS_METADATA)
 
-        PreloadComicsOperation().execute()
+        val preloadComics = PreloadComicsOperation().execute()
+        val downloadTrigger = view.downloadTrigger.startWith(Unit)
 
-        view.downloadTrigger
-            .startWith(Unit)
-            .flatMap { GetComicsOperation().execute() }
-            .map {
-                view.setState(StartContract.State.DOWNLOADING_COMICS)
-                it
+        Observable
+            .combineLatest(preloadComics, downloadTrigger) { _, _ -> }
+            .flatMap {
+                view.setState(StartContract.State.DOWNLOADING_COMIC_LIST)
+                GetComicsOperation()
+                    .execute()
+                    .handleError(view)
             }
             .flatMap { comics ->
+                view.setState(StartContract.State.DOWNLOADING_COMIC_PANELS)
                 var sequentialDownload: Observable<Any> = Observable.just(Unit)
                 comics.forEach { comic ->
                     sequentialDownload = sequentialDownload.flatMap {
-                        GetComicPanelsOperation(comic).execute()
+                        GetComicPanelsOperation(comic)
+                            .execute()
+                            .handleError(view)
                     }
                 }
                 sequentialDownload
             }
-            .onErrorReturn {
-                logger.error("Error downloading comics", it)
-                view.setState(StartContract.State.CONNECTION_ERROR)
-            }
+            .handleError(view)
             .subscribe {
                 view.navigateToComicGalleryScreen()
             }
