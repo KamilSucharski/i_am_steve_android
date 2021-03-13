@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Adapter items -->
-    <item name="adapter_item_loader" type="id" />
     <item name="adapter_item_comic_panel" type="id" />
-    <item name="adapter_item_comic_name" type="id" />
+    <item name="adapter_item_comic_title" type="id" />
     <item name="adapter_item_comic_archive" type="id" />
 </resources>

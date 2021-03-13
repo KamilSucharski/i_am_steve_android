@@ -9,4 +9,10 @@ object Consts {
     const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES"
     const val KEY_COMIC_LIST = "KEY_COMIC_LIST"
     const val KEY_PRELOAD_COMPLETED = "KEY_PRELOAD_COMPLETED"
+
+    // Extra
+    const val EXTRA_COMIC = "EXTRA_COMIC"
+
+    // Request Code
+    const val REQUEST_CODE_ARCHIVE_COMIC = 1000
 }

@@ -43,5 +43,10 @@ class ComicGalleryPresenter: Presenter<ComicGalleryContract.View>(), ComicGaller
         view.nextButtonTrigger
             .subscribe { view.setPosition(view.currentPosition + 1) }
             .addTo(disposables)
+
+        view.comicSelectedInArchiveTrigger
+            .withLatestFrom(comicsSubject) { comic, comics -> comics.indexOf(comic) }
+            .subscribe { view.setPosition(it) }
+            .addTo(disposables)
     }
 }

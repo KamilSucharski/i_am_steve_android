@@ -22,5 +22,4 @@ interface Adapter {
     val items: List<Item<out ViewDataBinding>>
 
     fun setData(items: List<Item<out ViewDataBinding>>)
-    fun setLoading(isLoading: Boolean)
 }

@@ -1,14 +1,17 @@
 package com.iamsteve.android.view.comic
 
+import android.content.Intent
 import android.view.View
 import android.widget.Toast
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityComicGalleryBinding
 import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.util.pager.OnPageChangedSubject
+import com.iamsteve.android.view.archive.ArchiveActivity
 import com.iamsteve.android.view.base.BaseActivity
 import com.iamsteve.android.view.comic.adapter.ComicFragmentAdapter
 import com.iamsteve.domain.model.Comic
+import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.view.comic.ComicGalleryContract
 import com.jakewharton.rxbinding3.view.clicks
 import io.reactivex.Observable
@@ -21,7 +24,8 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
     layoutResource = R.layout.activity_comic_gallery
 ), ComicGalleryContract.View {
 
-    override val pageChangedTrigger = BehaviorSubject.create<Int>()
+    override val pageChangedTrigger = PublishSubject.create<Int>()
+    override val comicSelectedInArchiveTrigger = PublishSubject.create<Comic>()
     override val previousButtonTrigger: Observable<Unit>
         get() = binding.previousButton.clicks().share()
     override val archiveButtonTrigger: Observable<Unit>
@@ -52,6 +56,13 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
     }
 
     override fun navigateToArchiveScreen() {
-        Toast.makeText(this, "nav", Toast.LENGTH_SHORT).show()
+        ArchiveActivity.startForResult(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        ArchiveActivity
+            .parseResult(requestCode, resultCode, data)
+            ?.let(comicSelectedInArchiveTrigger::onNext)
     }
 }

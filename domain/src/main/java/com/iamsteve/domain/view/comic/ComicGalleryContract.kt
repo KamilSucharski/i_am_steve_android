@@ -12,6 +12,7 @@ interface ComicGalleryContract {
         val previousButtonTrigger: Observable<Unit>
         val archiveButtonTrigger: Observable<Unit>
         val nextButtonTrigger: Observable<Unit>
+        val comicSelectedInArchiveTrigger: Observable<Comic>
         val currentPosition: Int
 
         fun displayComics(comics: List<Comic>)

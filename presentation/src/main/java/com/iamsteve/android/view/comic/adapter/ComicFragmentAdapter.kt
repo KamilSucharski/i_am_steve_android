@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.iamsteve.android.util.Argument
 import com.iamsteve.android.view.comic.ComicFragment
 import com.iamsteve.domain.model.Comic
+import com.iamsteve.domain.util.Consts
 
 
 class ComicFragmentAdapter(
@@ -16,7 +16,7 @@ class ComicFragmentAdapter(
 
     override fun createFragment(position: Int): Fragment {
         val args = Bundle().apply {
-            putSerializable(Argument.COMIC.name, comics[position])
+            putSerializable(Consts.EXTRA_COMIC, comics[position])
         }
         return ComicFragment().apply {
             arguments = args

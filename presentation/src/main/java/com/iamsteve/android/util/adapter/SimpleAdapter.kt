@@ -10,7 +10,6 @@ import com.iamsteve.android.R
 class SimpleAdapter : RecyclerView.Adapter<SimpleViewHolder>(), Adapter {
 
     override var items: List<Adapter.Item<out ViewDataBinding>> = emptyList()
-    private val isCurrentlyLoading get() = items.any { it.viewTypeResource == R.id.adapter_item_loader }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {
         val item = items.firstOrNull { it.viewTypeResource == viewType } ?: throw Adapter.ViewHolderError()
@@ -29,25 +28,7 @@ class SimpleAdapter : RecyclerView.Adapter<SimpleViewHolder>(), Adapter {
     }
 
     override fun setData(items: List<Adapter.Item<out ViewDataBinding>>) {
-        val preExistingLoader = if (isCurrentlyLoading) {
-            listOf(LoaderItem())
-        } else {
-            emptyList()
-        }
-        this.items = items + preExistingLoader
-        notifyDataSetChanged()
-    }
-
-    override fun setLoading(isLoading: Boolean) {
-        items = if (isLoading) {
-            if (isCurrentlyLoading) {
-                return
-            }
-            items + LoaderItem()
-        } else {
-            items.filter { it.viewTypeResource != R.id.adapter_item_loader }
-        }
-
+        this.items = items
         notifyDataSetChanged()
     }
 }

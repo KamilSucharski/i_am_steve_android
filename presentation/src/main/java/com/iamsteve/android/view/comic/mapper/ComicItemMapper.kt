@@ -2,6 +2,7 @@ package com.iamsteve.android.view.comic.mapper
 
 import com.iamsteve.android.util.adapter.Adapter
 import com.iamsteve.android.view.list.ComicPanelItem
+import com.iamsteve.android.view.list.ComicTitleItem
 import com.iamsteve.domain.util.Mapper
 import com.iamsteve.domain.view.comic.ComicContract
 
@@ -11,6 +12,7 @@ class ComicItemMapper : Mapper<ComicContract.Data, List<Adapter.Item<*>>> {
         ComicPanelItem(file = comicPanels.panel1),
         ComicPanelItem(file = comicPanels.panel2),
         ComicPanelItem(file = comicPanels.panel3),
-        ComicPanelItem(file = comicPanels.panel4)
+        ComicPanelItem(file = comicPanels.panel4),
+        ComicTitleItem(comic = comic)
     )
 }

@@ -4,13 +4,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.FragmentComicBinding
-import com.iamsteve.android.util.Argument
 import com.iamsteve.android.util.adapter.SimpleAdapter
 import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.base.BaseFragment
 import com.iamsteve.android.view.comic.mapper.ComicItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
+import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.map
 import com.iamsteve.domain.view.comic.ComicContract
 import org.koin.android.ext.android.inject
@@ -21,7 +21,7 @@ class ComicFragment : BaseFragment<ComicContract.View, ComicContract.Presenter, 
 ), ComicContract.View {
 
     override val comic: Comic get() = arguments
-        ?.getSerializable(Argument.COMIC.name) as? Comic
+        ?.getSerializable(Consts.EXTRA_COMIC) as? Comic
         ?: throw MissingArgumentException()
     override val presenter: ComicContract.Presenter by inject()
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ activity }) }
