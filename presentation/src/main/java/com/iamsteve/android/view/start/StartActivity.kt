@@ -1,10 +1,12 @@
 package com.iamsteve.android.view.start
 
+import android.content.Intent
 import android.widget.Toast
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityStartBinding
 import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.base.BaseActivity
+import com.iamsteve.android.view.comic.ComicGalleryActivity
 import com.iamsteve.domain.view.start.StartContract
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -21,6 +23,7 @@ class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, 
     }
 
     override fun navigateToComicGalleryScreen() {
-        Toast.makeText(this, "nav", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, ComicGalleryActivity::class.java))
+        finish()
     }
 }

@@ -1,14 +1,54 @@
 package com.iamsteve.android.view.comic
 
+import android.view.View
+import android.widget.Toast
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityComicGalleryBinding
+import com.iamsteve.android.util.implementation.ToastErrorHandler
+import com.iamsteve.android.util.pager.OnPageChangedSubject
 import com.iamsteve.android.view.base.BaseActivity
+import com.iamsteve.android.view.comic.adapter.ComicFragmentAdapter
+import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.view.comic.ComicGalleryContract
+import com.jakewharton.rxbinding3.view.clicks
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGalleryContract.Presenter, ActivityComicGalleryBinding>(
     layoutResource = R.layout.activity_comic_gallery
 ), ComicGalleryContract.View {
 
+    override val pageChangedTrigger = PublishSubject.create<Int>()
+    override val previousButtonTrigger: Observable<Unit>
+        get() = binding.previousButton.clicks().share()
+    override val archiveButtonTrigger: Observable<Unit>
+        get() = binding.archiveButton.clicks().share()
+    override val nextButtonTrigger: Observable<Unit>
+        get() = binding.nextButton.clicks().share()
+    override val currentPosition: Int
+        get() = binding.viewPager.currentItem
     override val presenter: ComicGalleryContract.Presenter by inject()
+    override val errorHandler: ToastErrorHandler by inject { parametersOf({ this }) }
+
+    override fun displayComics(comics: List<Comic>) {
+        binding.viewPager.run {
+            registerOnPageChangeCallback(OnPageChangedSubject(pageChangedTrigger))
+            adapter = ComicFragmentAdapter(this@ComicGalleryActivity, comics)
+        }
+    }
+
+    override fun setPosition(position: Int) {
+        binding.viewPager.setCurrentItem(position, true)
+    }
+
+    override fun setButtonVisibility(previousButtonVisible: Boolean, nextButtonVisible: Boolean) {
+        binding.previousButton.visibility = if (previousButtonVisible) View.VISIBLE else View.INVISIBLE
+        binding.nextButton.visibility = if (nextButtonVisible) View.VISIBLE else View.INVISIBLE
+    }
+
+    override fun navigateToArchiveScreen() {
+        Toast.makeText(this, "nav", Toast.LENGTH_SHORT).show()
+    }
 }
