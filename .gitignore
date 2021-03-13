@@ -8,6 +8,8 @@ build
 captures
 local.properties
 
-signing
 app/release_keystore.jks
 app/keystore.properties
+presentation/neocitiesWithoutPreload/
+presentation/neocitiesWithPreload/
+signing
