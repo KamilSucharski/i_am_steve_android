@@ -1,8 +1,9 @@
 package com.iamsteve.android.view.archive
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iamsteve.android.R
@@ -13,6 +14,7 @@ import com.iamsteve.android.view.archive.mapper.ArchiveItemMapper
 import com.iamsteve.android.view.base.BaseActivity
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
+import com.iamsteve.domain.util.extension.cast
 import com.iamsteve.domain.util.map
 import com.iamsteve.domain.view.archive.ArchiveContract
 import io.reactivex.subjects.PublishSubject
@@ -28,21 +30,17 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ this }) }
 
     companion object {
-        fun startForResult(activity: Activity) {
-            val intent = Intent(activity, ArchiveActivity::class.java)
-            activity.startActivityForResult(
-                intent,
-                Consts.REQUEST_CODE_ARCHIVE_COMIC,
-                ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
-            )
+        fun startForResult(activity: Activity, resultLauncher: ActivityResultLauncher<Intent>) {
+            Intent(activity, ArchiveActivity::class.java)
+                .let(resultLauncher::launch)
         }
 
-        fun parseResult(requestCode: Int, resultCode: Int, data: Intent?): Comic? {
-            return if (requestCode == Consts.REQUEST_CODE_ARCHIVE_COMIC && resultCode == Activity.RESULT_OK) {
-                data?.getSerializableExtra(Consts.EXTRA_COMIC) as? Comic
-            } else {
-                null
-            }
+        fun parseResult(activityResult: ActivityResult): Comic? {
+            return activityResult
+                .takeIf { it.resultCode == Activity.RESULT_OK }
+                ?.data
+                ?.getSerializableExtra(Consts.EXTRA_COMIC)
+                ?.cast<Comic>()
         }
     }
 
@@ -59,7 +57,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
 
     override fun navigateToComic(comic: Comic) {
         val intent = Intent()
-        intent.putExtra(Consts.EXTRA_COMIC, comic)
+            .putExtra(Consts.EXTRA_COMIC, comic)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }

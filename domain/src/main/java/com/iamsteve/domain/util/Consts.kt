@@ -13,7 +13,4 @@ object Consts {
 
     // Extra
     const val EXTRA_COMIC = "EXTRA_COMIC"
-
-    // Request Code
-    const val REQUEST_CODE_ARCHIVE_COMIC = 1000
 }

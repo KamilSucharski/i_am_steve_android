@@ -22,5 +22,6 @@ class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, 
 
     override fun navigateToComicGalleryScreen() {
         ComicGalleryActivity.start(this)
+        finish()
     }
 }
