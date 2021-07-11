@@ -4,8 +4,8 @@ import com.iamsteve.domain.util.Logger
 import com.iamsteve.domain.util.Operation
 import com.iamsteve.domain.util.Preloader
 import io.reactivex.Observable
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class PreloadComicsOperation : Operation<Observable<Boolean>>, KoinComponent {
 

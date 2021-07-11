@@ -8,8 +8,8 @@ import com.iamsteve.domain.util.RxSchedulers
 import com.iamsteve.domain.util.extension.schedule
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.io.File
 
 class GetComicPanelsOperation(

@@ -9,8 +9,8 @@ import com.iamsteve.domain.util.RxSchedulers
 import com.iamsteve.domain.util.extension.catchError
 import com.iamsteve.domain.util.extension.schedule
 import io.reactivex.Observable
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class GetComicsOperation : Operation<Observable<List<Comic>>>, KoinComponent {
 
