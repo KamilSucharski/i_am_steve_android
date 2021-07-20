@@ -1,7 +1,7 @@
 package com.iamsteve.android.util.persistence
 
 import android.os.Bundle
-import com.iamsteve.domain.util.Logger
+import com.iamsteve.domain.util.abstraction.Logger
 import java.io.Serializable
 import java.lang.reflect.Field
 

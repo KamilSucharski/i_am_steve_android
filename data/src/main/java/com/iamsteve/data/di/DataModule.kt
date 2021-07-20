@@ -11,6 +11,7 @@ object DataModule : Module<DataModule.Parameters> {
 
     override fun provide(parameters: Parameters) = listOf(
         repositoryModule,
+        mapperModule,
         apiModule(
             apiUrl = parameters.apiUrl,
             isNetworkLoggingAllowed = parameters.isNetworkLoggingAllowed

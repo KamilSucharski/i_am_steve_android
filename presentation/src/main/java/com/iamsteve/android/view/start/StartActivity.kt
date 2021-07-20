@@ -5,6 +5,7 @@ import com.iamsteve.android.databinding.ActivityStartBinding
 import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.base.BaseActivity
 import com.iamsteve.android.view.comic.ComicGalleryActivity
+import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.view.start.StartContract
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -20,8 +21,8 @@ class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, 
         binding.bodyTextView.text = getString(R.string.start_body_with_progress, done, all)
     }
 
-    override fun navigateToComicGalleryScreen() {
-        ComicGalleryActivity.start(this)
+    override fun navigateToComicGalleryScreen(comics: List<Comic>) {
+        ComicGalleryActivity.start(this, comics)
         finish()
     }
 }

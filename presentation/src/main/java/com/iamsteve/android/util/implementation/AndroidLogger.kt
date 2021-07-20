@@ -2,7 +2,7 @@ package com.iamsteve.android.util.implementation
 
 import android.util.Log
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.Logger
+import com.iamsteve.domain.util.abstraction.Logger
 
 class AndroidLogger : Logger {
 

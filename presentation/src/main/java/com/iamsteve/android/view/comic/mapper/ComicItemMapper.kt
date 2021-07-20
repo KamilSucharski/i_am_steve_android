@@ -6,13 +6,13 @@ import com.iamsteve.android.view.list.ComicTitleItem
 import com.iamsteve.domain.util.Mapper
 import com.iamsteve.domain.view.comic.ComicContract
 
-class ComicItemMapper : Mapper<ComicContract.Data, List<Adapter.Item<*>>> {
+class ComicItemMapper : Mapper<ComicContract.State, List<Adapter.Item<*>>> {
 
-    override fun ComicContract.Data.map() = listOf(
-        ComicPanelItem(file = comicPanels.panel1),
-        ComicPanelItem(file = comicPanels.panel2),
-        ComicPanelItem(file = comicPanels.panel3),
-        ComicPanelItem(file = comicPanels.panel4),
+    override fun ComicContract.State.map() = listOf(
+        ComicPanelItem(bytes = comicPanels.panel1),
+        ComicPanelItem(bytes = comicPanels.panel2),
+        ComicPanelItem(bytes = comicPanels.panel3),
+        ComicPanelItem(bytes = comicPanels.panel4),
         ComicTitleItem(comic = comic)
     )
 }

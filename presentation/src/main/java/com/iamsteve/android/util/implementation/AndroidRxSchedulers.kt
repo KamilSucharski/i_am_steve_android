@@ -1,6 +1,6 @@
 package com.iamsteve.android.util.implementation
 
-import com.iamsteve.domain.util.RxSchedulers
+import com.iamsteve.domain.util.abstraction.RxSchedulers
 import io.reactivex.Scheduler
 
 class AndroidRxSchedulers(

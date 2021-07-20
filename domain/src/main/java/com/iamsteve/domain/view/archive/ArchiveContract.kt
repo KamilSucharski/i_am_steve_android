@@ -7,7 +7,8 @@ import com.iamsteve.domain.view.base.BaseView
 import io.reactivex.Observable
 
 interface ArchiveContract {
-    interface View : BaseView<Presenter>, ErrorHandling {
+    interface View : BaseView<Presenter> {
+        val comics: List<Comic>
         val comicTrigger: Observable<Comic>
 
         fun setData(comics: List<Comic>)

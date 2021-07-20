@@ -26,14 +26,14 @@ class ComicFragment : BaseFragment<ComicContract.View, ComicContract.Presenter, 
     override val presenter: ComicContract.Presenter by inject()
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ activity }) }
 
-    override fun setData(data: ComicContract.Data) {
+    override fun setData(state: ComicContract.State) {
         binding.recyclerView.layoutManager = LinearLayoutManager(
             binding.recyclerView.context,
             RecyclerView.VERTICAL,
             false
         )
         binding.recyclerView.adapter = SimpleAdapter().apply {
-            setData(data.map(ComicItemMapper()))
+            setData(state.map(ComicItemMapper()))
         }
     }
 }

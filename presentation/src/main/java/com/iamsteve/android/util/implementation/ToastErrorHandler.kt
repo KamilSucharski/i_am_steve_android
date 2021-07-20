@@ -2,7 +2,7 @@ package com.iamsteve.android.util.implementation
 
 import android.app.Activity
 import android.widget.Toast
-import com.iamsteve.domain.util.Logger
+import com.iamsteve.domain.util.abstraction.Logger
 import com.iamsteve.domain.util.error.ErrorHandler
 
 class ToastErrorHandler(

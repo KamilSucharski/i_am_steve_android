@@ -7,18 +7,20 @@ import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.map
 import io.reactivex.Observable
+import io.reactivex.Single
 
 class ComicRepositoryRemote(
-    private val comicAPI: ComicAPI
+    private val comicAPI: ComicAPI,
+    private val comicMapper: ComicMapper
 ) : ComicRepository.Remote {
 
-    override fun getComics(): Observable<List<Comic>> {
+    override fun getComics(): Single<List<Comic>> {
         return comicAPI
             .getComics()
-            .map { it.map(ComicMapper()) }
+            .map { it.map(comicMapper) }
     }
 
-    override fun getComicPanel(comicNumber: Int, panelNumber: Int): Observable<ByteArray> {
+    override fun getComicPanel(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
         return comicAPI
             .getComicPanel(
                 String.format(

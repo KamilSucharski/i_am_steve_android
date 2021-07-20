@@ -1,7 +1,6 @@
 package com.iamsteve.data.repository
 
-import com.google.gson.reflect.TypeToken
-import com.iamsteve.data.util.LocalStorage
+import com.iamsteve.data.util.abstraction.LocalStorage
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Consts
@@ -20,8 +19,7 @@ class ComicRepositoryLocal(
 
     override fun loadComics(): List<Comic>? {
         return localStorage.getSerializable(
-            key = Consts.KEY_COMIC_LIST,
-            type = object : TypeToken<List<Comic>>() {}.type
+            key = Consts.KEY_COMIC_LIST
         )
     }
 

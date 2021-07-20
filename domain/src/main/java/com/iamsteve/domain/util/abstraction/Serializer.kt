@@ -1,0 +1,8 @@
+package com.iamsteve.domain.util.abstraction
+
+interface Serializer {
+
+    fun <T> serialize(value: T): String
+
+    fun <T> deserialize(value: String): T?
+}

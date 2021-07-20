@@ -1,4 +1,4 @@
-package com.iamsteve.data.util
+package com.iamsteve.data.util.abstraction
 
 import java.io.File
 import java.io.Serializable
@@ -34,7 +34,7 @@ interface LocalStorage {
 
     fun getString(key: String): String?
 
-    fun <T> getSerializable(key: String, type: Type): T?
+    fun <T> getSerializable(key: String): T?
 
     fun getFile(key: String): File?
 }

@@ -8,6 +8,7 @@ object PresentationModule : Module<PresentationModule.Parameters> {
 
     override fun provide(parameters: Parameters) = listOf(
         utilModule,
+        operationModule,
         presenterModule,
         errorHandlerModule
     )

@@ -1,4 +1,4 @@
-package com.iamsteve.domain.util
+package com.iamsteve.domain.util.abstraction
 
 import io.reactivex.Scheduler
 

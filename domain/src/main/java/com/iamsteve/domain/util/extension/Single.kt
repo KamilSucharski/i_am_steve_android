@@ -3,18 +3,19 @@ package com.iamsteve.domain.util.extension
 import com.iamsteve.domain.util.abstraction.RxSchedulers
 import com.iamsteve.domain.util.error.ErrorHandler
 import io.reactivex.Observable
+import io.reactivex.Single
 
-fun <T> Observable<T>.catchError(handler: (Throwable) -> Observable<T>): Observable<T> {
+fun <T> Single<T>.catchError(handler: (Throwable) -> Single<T>): Single<T> {
     return onErrorResumeNext(handler)
 }
 
-fun <T> Observable<T>.handleError(errorHandler: ErrorHandler, default: T? = null): Observable<T> {
+fun <T> Single<T>.handleError(errorHandler: ErrorHandler, default: T? = null): Single<T> {
     return catchError { error ->
         errorHandler.handleError(error)
-        default?.let { Observable.just(it) } ?: Observable.empty()
+        default?.let { Single.just(it) } ?: Single.never()
     }
 }
 
-fun <T> Observable<T>.schedule(schedulers: RxSchedulers): Observable<T> {
+fun <T> Single<T>.schedule(schedulers: RxSchedulers): Single<T> {
     return subscribeOn(schedulers.subscribeThread).observeOn(schedulers.observeThread)
 }

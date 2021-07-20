@@ -2,8 +2,9 @@ package com.iamsteve.android.util.implementation
 
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.iamsteve.data.util.LocalStorage
+import com.iamsteve.data.util.abstraction.LocalStorage
 import com.iamsteve.domain.util.Consts
+import com.iamsteve.domain.util.abstraction.Serializer
 import java.io.File
 import java.io.Serializable
 import java.lang.reflect.Type
@@ -11,7 +12,7 @@ import java.lang.reflect.Type
 class AndroidLocalStorage(
     private val sharedPreferences: SharedPreferences,
     private val filesDirectory: File,
-    private val gson: Gson
+    private val serializer: Serializer
 ) : LocalStorage {
 
     override fun containsEntry(key: String): Boolean {
@@ -51,7 +52,7 @@ class AndroidLocalStorage(
     }
 
     override fun putSerializable(key: String, serializable: Serializable): String {
-        val serializedValue = gson.toJson(serializable)
+        val serializedValue = serializer.serialize(serializable)
         sharedPreferences.edit().putString(key, serializedValue).apply()
         return serializedValue
     }
@@ -94,10 +95,10 @@ class AndroidLocalStorage(
         }
     }
 
-    override fun <T> getSerializable(key: String, type: Type): T? {
+    override fun <T> getSerializable(key: String): T? {
         return if (sharedPreferences.contains(key)) {
-            val serializedValue = sharedPreferences.getString(key, Consts.EMPTY)
-            gson.fromJson<T>(serializedValue, type)
+            val serializedValue = sharedPreferences.getString(key, Consts.EMPTY) ?: Consts.EMPTY
+            serializer.deserialize<T>(serializedValue)
         } else {
             null
         }

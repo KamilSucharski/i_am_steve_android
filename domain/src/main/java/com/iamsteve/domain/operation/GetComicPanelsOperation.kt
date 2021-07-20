@@ -1,68 +1,126 @@
 package com.iamsteve.domain.operation
 
+import com.iamsteve.domain.exception.NoComicPanelException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.model.ComicPanels
+import com.iamsteve.domain.repository.AssetRepository
 import com.iamsteve.domain.repository.ComicRepository
-import com.iamsteve.domain.util.Operation
-import com.iamsteve.domain.util.RxSchedulers
+import com.iamsteve.domain.util.Consts
+import com.iamsteve.domain.util.abstraction.Logger
+import com.iamsteve.domain.util.abstraction.Operation
+import com.iamsteve.domain.util.abstraction.RxSchedulers
+import com.iamsteve.domain.util.extension.catchError
 import com.iamsteve.domain.util.extension.schedule
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.rxkotlin.Observables
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.io.File
 
 class GetComicPanelsOperation(
-    private val comic: Comic
-) : Operation<Observable<ComicPanels>>, KoinComponent {
+    private val assetRepositoryLocal: AssetRepository.Local,
+    private val schedulers: RxSchedulers,
+    private val comicRepositoryLocal: ComicRepository.Local,
+    private val comicRepositoryRemote: ComicRepository.Remote,
+    private val logger: Logger
+) : Operation<Comic, Single<ComicPanels>> {
 
-    private val schedulers by inject<RxSchedulers>()
-    private val comicRepositoryLocal by inject<ComicRepository.Local>()
-    private val comicRepositoryRemote by inject<ComicRepository.Remote>()
-
-    override fun execute(): Observable<ComicPanels> {
-        getExistingComicPanels()?.let {
-            return Observable.fromCallable { it }
-        }
-
-        val panelObservables = mutableListOf<Observable<File>>()
-        for (panelNumber in 1..4) {
-            comicRepositoryRemote
-                .getComicPanel(
-                    comicNumber = comic.number,
-                    panelNumber = panelNumber
+    override fun execute(input: Comic): Single<ComicPanels> {
+        return getFromAssets(input.number)
+            .catchError {
+                logger.error(
+                    "Could not get comic panels from the assets. Trying local storage.",
+                    it
                 )
-                .map {
-                    comicRepositoryLocal.saveComicPanel(
-                        comicNumber = comic.number,
-                        panelNumber = panelNumber,
-                        byteArray = it
-                    )
-                }
-                .schedule(schedulers)
-                .let { panelObservables.add(it) }
-        }
+                getFromLocalStorage(input.number)
+            }
+            .catchError {
+                logger.error(
+                    "Could not get comic panels from the local storage. Trying API.",
+                    it
+                )
+                getFromAPI(input.number)
+            }
+            .schedule(schedulers)
+    }
 
-        return Observables.zip(
-            panelObservables[0],
-            panelObservables[1],
-            panelObservables[2],
-            panelObservables[3]
-        ) { panel1, panel2, panel3, panel4 ->
-            ComicPanels(
-                panel1 = panel1,
-                panel2 = panel2,
-                panel3 = panel3,
-                panel4 = panel4
+    private fun getFromAssets(comicNumber: Int): Single<ComicPanels> = joinPanels(
+        panel1Single = getPanelFromAssets(comicNumber = comicNumber, panelNumber = 1),
+        panel2Single = getPanelFromAssets(comicNumber = comicNumber, panelNumber = 2),
+        panel3Single = getPanelFromAssets(comicNumber = comicNumber, panelNumber = 3),
+        panel4Single = getPanelFromAssets(comicNumber = comicNumber, panelNumber = 4)
+    )
+
+    private fun getPanelFromAssets(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
+        return Single.fromCallable {
+            val fileName = String.format(
+                Consts.COMIC_PANEL_FILE_NAME_FORMAT,
+                comicNumber,
+                panelNumber
             )
+            assetRepositoryLocal.read(fileName).readBytes()
         }
     }
 
-    private fun getExistingComicPanels(): ComicPanels? {
-        val panel1 = comicRepositoryLocal.loadComicPanel(comic.number, 1) ?: return null
-        val panel2 = comicRepositoryLocal.loadComicPanel(comic.number, 2) ?: return null
-        val panel3 = comicRepositoryLocal.loadComicPanel(comic.number, 3) ?: return null
-        val panel4 = comicRepositoryLocal.loadComicPanel(comic.number, 4) ?: return null
-        return ComicPanels(panel1, panel2, panel3, panel4)
+    private fun getFromLocalStorage(comicNumber: Int): Single<ComicPanels> = joinPanels(
+        panel1Single = getPanelFromLocalStorage(comicNumber = comicNumber, panelNumber = 1),
+        panel2Single = getPanelFromLocalStorage(comicNumber = comicNumber, panelNumber = 2),
+        panel3Single = getPanelFromLocalStorage(comicNumber = comicNumber, panelNumber = 3),
+        panel4Single = getPanelFromLocalStorage(comicNumber = comicNumber, panelNumber = 4)
+    )
+
+    private fun getPanelFromLocalStorage(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
+        return Single.fromCallable {
+            comicRepositoryLocal
+                .loadComicPanel(
+                    comicNumber = comicNumber,
+                    panelNumber = panelNumber
+                )
+                ?.readBytes()
+                ?: throw NoComicPanelException()
+        }
+    }
+
+    private fun getFromAPI(comicNumber: Int): Single<ComicPanels> = joinPanels(
+        panel1Single = getPanelFromAPI(comicNumber = comicNumber, panelNumber = 1),
+        panel2Single = getPanelFromAPI(comicNumber = comicNumber, panelNumber = 2),
+        panel3Single = getPanelFromAPI(comicNumber = comicNumber, panelNumber = 3),
+        panel4Single = getPanelFromAPI(comicNumber = comicNumber, panelNumber = 4)
+    )
+
+    private fun getPanelFromAPI(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
+        return comicRepositoryRemote
+            .getComicPanel(
+                comicNumber = comicNumber,
+                panelNumber = panelNumber
+            )
+            .map {
+                comicRepositoryLocal.saveComicPanel(
+                    comicNumber = comicNumber,
+                    panelNumber = panelNumber,
+                    byteArray = it
+                )
+                it
+            }
+    }
+
+    private fun joinPanels(
+        panel1Single: Single<ByteArray>,
+        panel2Single: Single<ByteArray>,
+        panel3Single: Single<ByteArray>,
+        panel4Single: Single<ByteArray>
+    ): Single<ComicPanels> = Single.zip(
+        panel1Single,
+        panel2Single,
+        panel3Single,
+        panel4Single
+    ) { panel1, panel2, panel3, panel4 ->
+        ComicPanels(
+            panel1 = panel1,
+            panel2 = panel2,
+            panel3 = panel3,
+            panel4 = panel4
+        )
     }
 }
