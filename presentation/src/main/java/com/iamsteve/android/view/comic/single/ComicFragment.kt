@@ -1,4 +1,4 @@
-package com.iamsteve.android.view.comic
+package com.iamsteve.android.view.comic.single
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -7,19 +7,18 @@ import com.iamsteve.android.databinding.FragmentComicBinding
 import com.iamsteve.android.util.adapter.SimpleAdapter
 import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.base.BaseFragment
-import com.iamsteve.android.view.comic.mapper.ComicItemMapper
+import com.iamsteve.android.view.comic.single.mapper.ComicItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.map
-import com.iamsteve.domain.view.comic.ComicContract
+import com.iamsteve.domain.view.comic.single.ComicContract
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class ComicFragment :
-    BaseFragment<ComicContract.View, ComicContract.Presenter, FragmentComicBinding>(
-        layoutResource = R.layout.fragment_comic
-    ), ComicContract.View {
+class ComicFragment : BaseFragment<ComicContract.View, ComicContract.Presenter, FragmentComicBinding>(
+    layoutResource = R.layout.fragment_comic
+), ComicContract.View {
 
     override val comic: Comic
         get() = arguments

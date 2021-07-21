@@ -1,10 +1,10 @@
-package com.iamsteve.android.view.comic.adapter
+package com.iamsteve.android.view.comic.gallery.adapter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.iamsteve.android.view.comic.ComicFragment
+import com.iamsteve.android.view.comic.single.ComicFragment
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
 

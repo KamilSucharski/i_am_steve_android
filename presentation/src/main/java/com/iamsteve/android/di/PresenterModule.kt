@@ -2,10 +2,10 @@ package com.iamsteve.android.di
 
 import com.iamsteve.domain.view.archive.ArchiveContract
 import com.iamsteve.domain.view.archive.ArchivePresenter
-import com.iamsteve.domain.view.comic.ComicContract
-import com.iamsteve.domain.view.comic.ComicGalleryContract
-import com.iamsteve.domain.view.comic.ComicGalleryPresenter
-import com.iamsteve.domain.view.comic.ComicPresenter
+import com.iamsteve.domain.view.comic.single.ComicContract
+import com.iamsteve.domain.view.comic.gallery.ComicGalleryContract
+import com.iamsteve.domain.view.comic.gallery.ComicGalleryPresenter
+import com.iamsteve.domain.view.comic.single.ComicPresenter
 import com.iamsteve.domain.view.start.StartContract
 import com.iamsteve.domain.view.start.StartPresenter
 import org.koin.dsl.module

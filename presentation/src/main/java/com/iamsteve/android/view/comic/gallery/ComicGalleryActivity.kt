@@ -1,4 +1,4 @@
-package com.iamsteve.android.view.comic
+package com.iamsteve.android.view.comic.gallery
 
 import android.content.Context
 import android.content.Intent
@@ -9,12 +9,12 @@ import com.iamsteve.android.databinding.ActivityComicGalleryBinding
 import com.iamsteve.android.util.pager.OnPageChangedSubject
 import com.iamsteve.android.view.archive.ArchiveActivity
 import com.iamsteve.android.view.base.BaseActivity
-import com.iamsteve.android.view.comic.adapter.ComicFragmentAdapter
+import com.iamsteve.android.view.comic.gallery.adapter.ComicFragmentAdapter
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.extension.cast
-import com.iamsteve.domain.view.comic.ComicGalleryContract
+import com.iamsteve.domain.view.comic.gallery.ComicGalleryContract
 import com.jakewharton.rxbinding3.view.clicks
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

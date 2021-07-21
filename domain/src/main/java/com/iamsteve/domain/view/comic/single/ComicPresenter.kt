@@ -1,4 +1,4 @@
-package com.iamsteve.domain.view.comic
+package com.iamsteve.domain.view.comic.single
 
 import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.util.extension.handleError

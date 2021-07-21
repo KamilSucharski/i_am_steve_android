@@ -1,4 +1,4 @@
-package com.iamsteve.domain.view.comic
+package com.iamsteve.domain.view.comic.gallery
 
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.view.base.BasePresenter

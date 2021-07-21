@@ -4,7 +4,7 @@ import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityStartBinding
 import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.base.BaseActivity
-import com.iamsteve.android.view.comic.ComicGalleryActivity
+import com.iamsteve.android.view.comic.gallery.ComicGalleryActivity
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.view.start.StartContract
 import org.koin.android.ext.android.inject
