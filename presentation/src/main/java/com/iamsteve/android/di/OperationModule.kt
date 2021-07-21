@@ -11,7 +11,6 @@ val operationModule = module {
             comicRepositoryLocal = get(),
             comicRepositoryRemote = get(),
             schedulers = get(),
-            serializer = get(),
             logger = get()
         )
     }

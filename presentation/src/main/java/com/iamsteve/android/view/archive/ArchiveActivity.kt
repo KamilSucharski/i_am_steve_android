@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityArchiveBinding
 import com.iamsteve.android.util.adapter.SimpleAdapter
-import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.archive.mapper.ArchiveItemMapper
 import com.iamsteve.android.view.base.BaseActivity
 import com.iamsteve.domain.exception.MissingArgumentException
@@ -21,7 +20,6 @@ import com.iamsteve.domain.util.map
 import com.iamsteve.domain.view.archive.ArchiveContract
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
     layoutResource = R.layout.activity_archive

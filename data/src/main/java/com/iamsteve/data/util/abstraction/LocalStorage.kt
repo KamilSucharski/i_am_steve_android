@@ -34,7 +34,7 @@ interface LocalStorage {
 
     fun getString(key: String): String?
 
-    fun <T> getSerializable(key: String): T?
+    fun <T> getSerializable(key: String, type: Type): T?
 
     fun getFile(key: String): File?
 }

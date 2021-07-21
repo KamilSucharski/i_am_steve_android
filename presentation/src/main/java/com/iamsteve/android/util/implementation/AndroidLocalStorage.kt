@@ -1,10 +1,9 @@
 package com.iamsteve.android.util.implementation
 
 import android.content.SharedPreferences
-import com.google.gson.Gson
 import com.iamsteve.data.util.abstraction.LocalStorage
+import com.iamsteve.data.util.abstraction.Serializer
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.abstraction.Serializer
 import java.io.File
 import java.io.Serializable
 import java.lang.reflect.Type
@@ -95,10 +94,15 @@ class AndroidLocalStorage(
         }
     }
 
-    override fun <T> getSerializable(key: String): T? {
+    override fun <T> getSerializable(key: String, type: Type): T? {
         return if (sharedPreferences.contains(key)) {
-            val serializedValue = sharedPreferences.getString(key, Consts.EMPTY) ?: Consts.EMPTY
-            serializer.deserialize<T>(serializedValue)
+            val serializedValue = sharedPreferences
+                .getString(key, Consts.EMPTY)
+                ?: Consts.EMPTY
+            serializer.deserialize<T>(
+                value = serializedValue,
+                type = type
+            )
         } else {
             null
         }

@@ -1,10 +1,12 @@
 package com.iamsteve.domain.repository
 
-import java.io.InputStream
+import com.iamsteve.domain.model.Comic
+import io.reactivex.Single
 
 interface AssetRepository {
 
     interface Local {
-        fun read(assetName: String): InputStream
+        fun getComics(): Single<List<Comic>>
+        fun getComicPanel(comicNumber: Int, panelNumber: Int): Single<ByteArray>
     }
 }

@@ -1,15 +1,13 @@
 package com.iamsteve.data.di
 
-import com.iamsteve.domain.util.di.Module
-
-object DataModule : Module<DataModule.Parameters> {
+object DataModule {
 
     class Parameters(
         val apiUrl: String,
         val isNetworkLoggingAllowed: Boolean
     )
 
-    override fun provide(parameters: Parameters) = listOf(
+    fun provide(parameters: Parameters) = listOf(
         repositoryModule,
         mapperModule,
         apiModule(

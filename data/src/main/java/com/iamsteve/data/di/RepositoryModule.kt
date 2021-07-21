@@ -8,7 +8,7 @@ import com.iamsteve.domain.repository.ComicRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory<AssetRepository.Local> { AssetRepositoryLocal(get()) }
+    factory<AssetRepository.Local> { AssetRepositoryLocal(get(), get()) }
     factory<ComicRepository.Local> { ComicRepositoryLocal(get()) }
     factory<ComicRepository.Remote> { ComicRepositoryRemote(get(), get()) }
 }

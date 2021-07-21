@@ -2,12 +2,10 @@ package com.iamsteve.android.view.comic
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityComicGalleryBinding
-import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.util.pager.OnPageChangedSubject
 import com.iamsteve.android.view.archive.ArchiveActivity
 import com.iamsteve.android.view.base.BaseActivity
@@ -21,7 +19,6 @@ import com.jakewharton.rxbinding3.view.clicks
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGalleryContract.Presenter, ActivityComicGalleryBinding>(
     layoutResource = R.layout.activity_comic_gallery
@@ -72,7 +69,8 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
     }
 
     override fun setButtonVisibility(previousButtonVisible: Boolean, nextButtonVisible: Boolean) {
-        binding.previousButton.visibility = if (previousButtonVisible) View.VISIBLE else View.INVISIBLE
+        binding.previousButton.visibility =
+            if (previousButtonVisible) View.VISIBLE else View.INVISIBLE
         binding.nextButton.visibility = if (nextButtonVisible) View.VISIBLE else View.INVISIBLE
     }
 

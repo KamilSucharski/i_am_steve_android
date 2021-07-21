@@ -1,8 +1,8 @@
 package com.iamsteve.android.util.implementation
 
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.iamsteve.domain.util.abstraction.Serializer
+import com.iamsteve.data.util.abstraction.Serializer
+import java.lang.reflect.Type
 
 class GsonSerializer(private val gson: Gson) : Serializer {
 
@@ -10,9 +10,9 @@ class GsonSerializer(private val gson: Gson) : Serializer {
         return gson.toJson(value)
     }
 
-    override fun <T> deserialize(value: String): T? {
+    override fun <T> deserialize(value: String, type: Type): T? {
         return try {
-            gson.fromJson<T>(value, object : TypeToken<T>() {}.type)
+            gson.fromJson<T>(value, type)
         } catch (e: Exception) {
             null
         }

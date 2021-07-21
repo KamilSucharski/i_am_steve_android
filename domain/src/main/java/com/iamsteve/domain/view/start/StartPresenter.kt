@@ -2,6 +2,7 @@ package com.iamsteve.domain.view.start
 
 import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.operation.GetComicsOperation
+import com.iamsteve.domain.util.abstraction.execute
 import com.iamsteve.domain.util.extension.handleError
 import com.iamsteve.domain.view.base.Presenter
 import io.reactivex.Single
@@ -15,7 +16,7 @@ class StartPresenter(
 
     override fun subscribe(view: StartContract.View) {
         getComicsOperation
-            .execute(Unit)
+            .execute()
             .handleError(view.errorHandler)
             .flatMap { comics ->
                 var sequentialDownload: Single<Any> = Single.just(Unit)

@@ -1,5 +1,6 @@
 package com.iamsteve.android.util.extension
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 
-fun ByteArray.toBitmap() = BitmapFactory.decodeByteArray(this, 0, this.size)
+fun ByteArray.toBitmap(): Bitmap = BitmapFactory.decodeByteArray(this, 0, this.size)

@@ -30,7 +30,7 @@ class App : Application() {
     }
 
     private fun initKoin() {
-        val presentationModules = PresentationModule.provide(PresentationModule.Parameters())
+        val presentationModules = PresentationModule.provide()
         val dataModules = DataModule.provide(
             DataModule.Parameters(
                 apiUrl = BuildConfig.API_URL,

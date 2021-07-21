@@ -5,18 +5,11 @@ import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.model.ComicPanels
 import com.iamsteve.domain.repository.AssetRepository
 import com.iamsteve.domain.repository.ComicRepository
-import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.abstraction.Logger
 import com.iamsteve.domain.util.abstraction.Operation
 import com.iamsteve.domain.util.abstraction.RxSchedulers
-import com.iamsteve.domain.util.extension.catchError
 import com.iamsteve.domain.util.extension.schedule
-import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.rxkotlin.Observables
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import java.io.File
 
 class GetComicPanelsOperation(
     private val assetRepositoryLocal: AssetRepository.Local,
@@ -28,14 +21,14 @@ class GetComicPanelsOperation(
 
     override fun execute(input: Comic): Single<ComicPanels> {
         return getFromAssets(input.number)
-            .catchError {
+            .onErrorResumeNext {
                 logger.error(
                     "Could not get comic panels from the assets. Trying local storage.",
                     it
                 )
                 getFromLocalStorage(input.number)
             }
-            .catchError {
+            .onErrorResumeNext {
                 logger.error(
                     "Could not get comic panels from the local storage. Trying API.",
                     it
@@ -53,14 +46,10 @@ class GetComicPanelsOperation(
     )
 
     private fun getPanelFromAssets(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
-        return Single.fromCallable {
-            val fileName = String.format(
-                Consts.COMIC_PANEL_FILE_NAME_FORMAT,
-                comicNumber,
-                panelNumber
-            )
-            assetRepositoryLocal.read(fileName).readBytes()
-        }
+        return assetRepositoryLocal.getComicPanel(
+            comicNumber = comicNumber,
+            panelNumber = panelNumber
+        )
     }
 
     private fun getFromLocalStorage(comicNumber: Int): Single<ComicPanels> = joinPanels(
@@ -77,7 +66,6 @@ class GetComicPanelsOperation(
                     comicNumber = comicNumber,
                     panelNumber = panelNumber
                 )
-                ?.readBytes()
                 ?: throw NoComicPanelException()
         }
     }
@@ -101,7 +89,6 @@ class GetComicPanelsOperation(
                     panelNumber = panelNumber,
                     byteArray = it
                 )
-                it
             }
     }
 
