@@ -7,10 +7,14 @@ import java.io.File
 interface ComicRepository {
 
     interface Local {
-        fun saveComics(comics: ArrayList<Comic>)
-        fun loadComics(): List<Comic>?
-        fun saveComicPanel(comicNumber: Int, panelNumber: Int, byteArray: ByteArray): ByteArray
-        fun loadComicPanel(comicNumber: Int, panelNumber: Int): ByteArray?
+        fun getComicsFromAssets(): Single<List<Comic>>
+        fun getComicsFromLocalStorage(): Single<List<Comic>>
+        fun saveComicsToLocalStorage(comics: List<Comic>)
+
+        fun getComicPanelFromAssets(comicNumber: Int, panelNumber: Int): Single<ByteArray>
+        fun getComicPanelFromLocalStorage(comicNumber: Int, panelNumber: Int): Single<ByteArray>
+        fun saveComicPanelToLocalStorage(comicNumber: Int, panelNumber: Int, byteArray: ByteArray): ByteArray
+
     }
 
     interface Remote {

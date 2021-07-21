@@ -1,9 +1,7 @@
 package com.iamsteve.domain.operation
 
-import com.iamsteve.domain.exception.NoComicPanelException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.model.ComicPanels
-import com.iamsteve.domain.repository.AssetRepository
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.abstraction.Logger
 import com.iamsteve.domain.util.abstraction.Operation
@@ -12,7 +10,6 @@ import com.iamsteve.domain.util.extension.schedule
 import io.reactivex.Single
 
 class GetComicPanelsOperation(
-    private val assetRepositoryLocal: AssetRepository.Local,
     private val schedulers: RxSchedulers,
     private val comicRepositoryLocal: ComicRepository.Local,
     private val comicRepositoryRemote: ComicRepository.Remote,
@@ -33,7 +30,7 @@ class GetComicPanelsOperation(
                     "Could not get comic panels from the local storage. Trying API.",
                     it
                 )
-                getFromAPI(input.number)
+                getFromApi(input.number)
             }
             .schedule(schedulers)
     }
@@ -46,7 +43,7 @@ class GetComicPanelsOperation(
     )
 
     private fun getPanelFromAssets(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
-        return assetRepositoryLocal.getComicPanel(
+        return comicRepositoryLocal.getComicPanelFromAssets(
             comicNumber = comicNumber,
             panelNumber = panelNumber
         )
@@ -60,17 +57,13 @@ class GetComicPanelsOperation(
     )
 
     private fun getPanelFromLocalStorage(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
-        return Single.fromCallable {
-            comicRepositoryLocal
-                .loadComicPanel(
-                    comicNumber = comicNumber,
-                    panelNumber = panelNumber
-                )
-                ?: throw NoComicPanelException()
-        }
+        return comicRepositoryLocal.getComicPanelFromLocalStorage(
+            comicNumber = comicNumber,
+            panelNumber = panelNumber
+        )
     }
 
-    private fun getFromAPI(comicNumber: Int): Single<ComicPanels> = joinPanels(
+    private fun getFromApi(comicNumber: Int): Single<ComicPanels> = joinPanels(
         panel1Single = getPanelFromAPI(comicNumber = comicNumber, panelNumber = 1),
         panel2Single = getPanelFromAPI(comicNumber = comicNumber, panelNumber = 2),
         panel3Single = getPanelFromAPI(comicNumber = comicNumber, panelNumber = 3),
@@ -84,7 +77,7 @@ class GetComicPanelsOperation(
                 panelNumber = panelNumber
             )
             .map {
-                comicRepositoryLocal.saveComicPanel(
+                comicRepositoryLocal.saveComicPanelToLocalStorage(
                     comicNumber = comicNumber,
                     panelNumber = panelNumber,
                     byteArray = it
