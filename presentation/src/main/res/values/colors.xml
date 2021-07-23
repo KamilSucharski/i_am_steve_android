@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">@color/white</color>
-    <color name="faded_background">#CCCCCC</color>
+    <color name="darker_background">#CCCCCC</color>
     <color name="text">@color/black</color>
     <color name="button">#5E5E5E</color>
 

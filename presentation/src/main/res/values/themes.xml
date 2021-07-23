@@ -2,7 +2,7 @@
 
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/background</item>
-        <item name="colorSecondary">@color/faded_background</item>
+        <item name="colorSecondary">@color/darker_background</item>
         <item name="colorAccent">@color/text</item>
         <item name="android:windowBackground">@color/background</item>
         <item name="android:statusBarColor">@color/black</item>
