@@ -27,7 +27,10 @@ class AndroidLocalStorage(
     }
 
     override fun removeFile(key: String) {
-        File(filesDirectory, key).delete()
+        val file = File(filesDirectory, key)
+        if (file.exists()) {
+            file.delete()
+        }
     }
 
     override fun putBoolean(key: String, boolean: Boolean): Boolean {

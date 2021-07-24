@@ -1,4 +1,4 @@
-package com.iamsteve.domain.util
+package com.iamsteve.domain.util.abstraction
 
 interface Mapper<in In, out Out> {
     fun In.map(): Out

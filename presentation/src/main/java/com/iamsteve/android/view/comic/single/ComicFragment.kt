@@ -11,7 +11,7 @@ import com.iamsteve.android.view.comic.single.mapper.ComicItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.map
+import com.iamsteve.domain.util.abstraction.map
 import com.iamsteve.domain.view.comic.single.ComicContract
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf

@@ -43,10 +43,18 @@ class GetComicPanelsOperation(
     )
 
     private fun getPanelFromAssets(comicNumber: Int, panelNumber: Int): Single<ByteArray> {
-        return comicRepositoryLocal.getComicPanelFromAssets(
-            comicNumber = comicNumber,
-            panelNumber = panelNumber
-        )
+        return comicRepositoryLocal
+            .getComicPanelFromAssets(
+                comicNumber = comicNumber,
+                panelNumber = panelNumber
+            )
+            .map {
+                comicRepositoryLocal.removeComicPanelFromLocalStorage(
+                    comicNumber = comicNumber,
+                    panelNumber = panelNumber
+                )
+                it
+            }
     }
 
     private fun getFromLocalStorage(comicNumber: Int): Single<ComicPanels> = joinPanels(

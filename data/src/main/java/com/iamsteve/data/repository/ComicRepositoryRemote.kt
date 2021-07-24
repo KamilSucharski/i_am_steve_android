@@ -5,7 +5,7 @@ import com.iamsteve.data.mapper.ComicMapper
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.map
+import com.iamsteve.domain.util.abstraction.map
 import io.reactivex.Single
 
 class ComicRepositoryRemote(

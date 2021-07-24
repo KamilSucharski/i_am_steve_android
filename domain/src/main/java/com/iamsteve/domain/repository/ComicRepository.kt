@@ -14,7 +14,7 @@ interface ComicRepository {
         fun getComicPanelFromAssets(comicNumber: Int, panelNumber: Int): Single<ByteArray>
         fun getComicPanelFromLocalStorage(comicNumber: Int, panelNumber: Int): Single<ByteArray>
         fun saveComicPanelToLocalStorage(comicNumber: Int, panelNumber: Int, byteArray: ByteArray): ByteArray
-
+        fun removeComicPanelFromLocalStorage(comicNumber: Int, panelNumber: Int)
     }
 
     interface Remote {

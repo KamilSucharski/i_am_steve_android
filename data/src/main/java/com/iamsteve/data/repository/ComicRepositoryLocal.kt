@@ -80,4 +80,10 @@ class ComicRepositoryLocal(
         )
         return byteArray
     }
+
+    override fun removeComicPanelFromLocalStorage(comicNumber: Int, panelNumber: Int) {
+        localStorage.removeFile(
+            key = String.format(Consts.COMIC_PANEL_FILE_NAME_FORMAT, comicNumber, panelNumber)
+        )
+    }
 }
