@@ -7,9 +7,14 @@ import com.iamsteve.domain.view.base.BaseView
 
 interface StartContract {
     interface View : BaseView<Presenter>, ErrorHandling {
-        fun setProgress(done: Int, all: Int)
+        fun setState(state: State)
         fun navigateToComicGalleryScreen(comics: List<Comic>)
     }
 
     interface Presenter : BasePresenter<View>
+
+    data class State(
+        val done: Int,
+        val all: Int
+    )
 }

@@ -17,8 +17,12 @@ class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, 
     override val presenter: StartContract.Presenter by inject()
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ this }) }
 
-    override fun setProgress(done: Int, all: Int) {
-        binding.bodyTextView.text = getString(R.string.start_body_with_progress, done, all)
+    override fun setState(state: StartContract.State) {
+        binding.bodyTextView.text = getString(
+            R.string.start_body_with_progress,
+            state.done,
+            state.all
+        )
     }
 
     override fun navigateToComicGalleryScreen(comics: List<Comic>) {

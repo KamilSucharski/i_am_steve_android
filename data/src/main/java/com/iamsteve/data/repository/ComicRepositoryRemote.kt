@@ -1,16 +1,17 @@
 package com.iamsteve.data.repository
 
 import com.iamsteve.data.api.ComicApi
-import com.iamsteve.data.mapper.ComicMapper
+import com.iamsteve.data.dto.ComicDto
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Consts
+import com.iamsteve.domain.util.abstraction.Mapper
 import com.iamsteve.domain.util.abstraction.map
 import io.reactivex.Single
 
 class ComicRepositoryRemote(
     private val comicApi: ComicApi,
-    private val comicMapper: ComicMapper
+    private val comicMapper: Mapper<ComicDto, Comic>
 ) : ComicRepository.Remote {
 
     override fun getComics(): Single<List<Comic>> {

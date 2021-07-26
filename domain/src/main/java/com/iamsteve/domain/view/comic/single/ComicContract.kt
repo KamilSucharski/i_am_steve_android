@@ -10,7 +10,7 @@ interface ComicContract {
     interface View : BaseView<Presenter>, ErrorHandling {
         val comic: Comic
 
-        fun setData(state: State)
+        fun setState(state: State)
     }
 
     interface Presenter : BasePresenter<View>

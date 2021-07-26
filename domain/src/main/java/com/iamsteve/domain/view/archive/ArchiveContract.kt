@@ -10,9 +10,13 @@ interface ArchiveContract {
         val comics: List<Comic>
         val comicTrigger: Observable<Comic>
 
-        fun setData(comics: List<Comic>)
+        fun setState(state: State)
         fun navigateToComic(comic: Comic)
     }
 
     interface Presenter : BasePresenter<View>
+
+    data class State(
+        val comics: List<Comic>
+    )
 }

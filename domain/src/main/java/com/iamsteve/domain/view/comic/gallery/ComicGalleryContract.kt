@@ -15,11 +15,16 @@ interface ComicGalleryContract {
         val comicSelectedInArchiveTrigger: Observable<Comic>
         val currentPosition: Int
 
-        fun displayComics(comics: List<Comic>)
+        fun setState(state: State)
         fun setPosition(position: Int)
-        fun setButtonVisibility(previousButtonVisible: Boolean, nextButtonVisible: Boolean)
         fun navigateToArchiveScreen(comics: List<Comic>)
     }
 
     interface Presenter : BasePresenter<View>
+
+    data class State(
+        val comics: List<Comic>,
+        val previousButtonVisible: Boolean,
+        val nextButtonVisible: Boolean
+    )
 }

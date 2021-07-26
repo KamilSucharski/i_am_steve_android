@@ -54,14 +54,14 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
         }
     }
 
-    override fun setData(comics: List<Comic>) {
+    override fun setState(state: ArchiveContract.State) {
         binding.recyclerView.layoutManager = LinearLayoutManager(
             binding.recyclerView.context,
             RecyclerView.VERTICAL,
             false
         )
         binding.recyclerView.adapter = SimpleAdapter().apply {
-            setData(comics.map(ArchiveItemMapper(comicTrigger::onNext)))
+            setData(state.comics.map(ArchiveItemMapper(comicTrigger::onNext)))
         }
     }
 

@@ -8,6 +8,7 @@ import com.iamsteve.domain.view.base.Presenter
 import io.reactivex.Single
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.BehaviorSubject
 
 class StartPresenter(
     private val getComicsOperation: GetComicsOperation,
@@ -15,6 +16,12 @@ class StartPresenter(
 ) : Presenter<StartContract.View>(), StartContract.Presenter {
 
     override fun subscribe(view: StartContract.View) {
+        val state = BehaviorSubject.create<StartContract.State>()
+
+        state
+            .subscribe(view::setState)
+            .addTo(disposables)
+
         getComicsOperation
             .execute()
             .handleError(view.errorHandler)
@@ -24,7 +31,12 @@ class StartPresenter(
                     sequentialDownload = sequentialDownload.flatMap {
                         getComicPanelsOperation
                             .execute(comic)
-                            .map { view.setProgress(comic.number, comics.size) }
+                            .map {
+                                state.onNext(StartContract.State(
+                                    done = comic.number,
+                                    all = comics.size
+                                ))
+                            }
                             .handleError(view.errorHandler)
                     }
                 }

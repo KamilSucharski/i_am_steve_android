@@ -14,7 +14,7 @@ class ComicPresenter(
             .execute(view.comic)
             .map { ComicContract.State(comic = view.comic, comicPanels = it) }
             .handleError(view.errorHandler)
-            .subscribe(view::setData)
+            .subscribe(view::setState)
             .addTo(disposables)
     }
 }

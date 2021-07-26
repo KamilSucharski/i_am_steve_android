@@ -2,8 +2,8 @@ package com.iamsteve.android.view.comic.gallery
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isInvisible
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityComicGalleryBinding
 import com.iamsteve.android.util.pager.OnPageChangedSubject
@@ -55,23 +55,21 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
         }
     }
 
-    override fun displayComics(comics: List<Comic>) {
-        binding.viewPager.run {
-            registerOnPageChangeCallback(OnPageChangedSubject(pageChangedTrigger))
-            adapter = ComicFragmentAdapter(this@ComicGalleryActivity, comics)
-            setCurrentItem(comics.lastIndex, false)
-            setButtonVisibility(previousButtonVisible = true, nextButtonVisible = false)
+    override fun setState(state: ComicGalleryContract.State) {
+        if (binding.viewPager.adapter == null) {
+            binding.viewPager.run {
+                registerOnPageChangeCallback(OnPageChangedSubject(pageChangedTrigger))
+                adapter = ComicFragmentAdapter(this@ComicGalleryActivity, comics)
+                setCurrentItem(state.comics.lastIndex, false)
+            }
         }
+
+        binding.previousButton.isInvisible = !state.previousButtonVisible
+        binding.nextButton.isInvisible = !state.nextButtonVisible
     }
 
     override fun setPosition(position: Int) {
         binding.viewPager.setCurrentItem(position, true)
-    }
-
-    override fun setButtonVisibility(previousButtonVisible: Boolean, nextButtonVisible: Boolean) {
-        binding.previousButton.visibility =
-            if (previousButtonVisible) View.VISIBLE else View.INVISIBLE
-        binding.nextButton.visibility = if (nextButtonVisible) View.VISIBLE else View.INVISIBLE
     }
 
     override fun navigateToArchiveScreen(comics: List<Comic>) {
