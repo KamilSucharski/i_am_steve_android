@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     factory<ComicRepository.Local> { ComicRepositoryLocal(get(), get(), get()) }
-    factory<ComicRepository.Remote> { ComicRepositoryRemote(get(), get()) }
+    factory<ComicRepository.Remote> { ComicRepositoryRemote(get()) }
 }

@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityArchiveBinding
 import com.iamsteve.android.util.adapter.SimpleAdapter
-import com.iamsteve.android.view.archive.mapper.ArchiveItemMapper
 import com.iamsteve.android.view.base.BaseActivity
+import com.iamsteve.android.view.list.mapper.ArchiveItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.extension.cast
 import com.iamsteve.domain.util.abstraction.map
+import com.iamsteve.domain.util.extension.cast
 import com.iamsteve.domain.view.archive.ArchiveContract
 import io.reactivex.subjects.PublishSubject
 import org.koin.android.ext.android.inject
@@ -32,7 +32,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
             ?.cast()
             ?: throw MissingArgumentException()
     override val comicTrigger = PublishSubject.create<Comic>()
-    override val presenter: ArchiveContract.Presenter by inject()
+    override val presenter by inject<ArchiveContract.Presenter>()
 
     companion object {
         fun startForResult(
@@ -61,7 +61,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
             false
         )
         binding.recyclerView.adapter = SimpleAdapter().apply {
-            setData(state.comics.map(ArchiveItemMapper(comicTrigger::onNext)))
+            setData(state.map(ArchiveItemMapper(comicTrigger::onNext)))
         }
     }
 

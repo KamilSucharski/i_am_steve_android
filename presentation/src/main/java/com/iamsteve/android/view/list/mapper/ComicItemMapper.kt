@@ -1,8 +1,8 @@
-package com.iamsteve.android.view.comic.single.mapper
+package com.iamsteve.android.view.list.mapper
 
 import com.iamsteve.android.util.adapter.Adapter
-import com.iamsteve.android.view.list.ComicPanelItem
-import com.iamsteve.android.view.list.ComicTitleItem
+import com.iamsteve.android.view.list.item.ComicPanelItem
+import com.iamsteve.android.view.list.item.ComicTitleItem
 import com.iamsteve.domain.util.abstraction.Mapper
 import com.iamsteve.domain.view.comic.single.ComicContract
 

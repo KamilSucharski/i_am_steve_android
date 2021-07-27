@@ -9,7 +9,6 @@ object DataModule {
 
     fun provide(parameters: Parameters) = listOf(
         repositoryModule,
-        mapperModule,
         apiModule(
             apiUrl = parameters.apiUrl,
             isNetworkLoggingAllowed = parameters.isNetworkLoggingAllowed

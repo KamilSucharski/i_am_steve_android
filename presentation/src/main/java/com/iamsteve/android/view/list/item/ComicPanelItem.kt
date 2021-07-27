@@ -1,4 +1,4 @@
-package com.iamsteve.android.view.list
+package com.iamsteve.android.view.list.item
 
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ItemComicPanelBinding
