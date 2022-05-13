@@ -33,6 +33,10 @@ class SimpleAdapter : RecyclerView.Adapter<SimpleViewHolder>(), Adapter {
         item.bindView(holder.binding)
     }
 
+    override fun onViewRecycled(holder: SimpleViewHolder) {
+        holder.binding.unbind()
+    }
+
     override fun setData(items: List<Adapter.Item<out ViewDataBinding>>) {
         this.items = items
         notifyDataSetChanged()

@@ -24,6 +24,7 @@ abstract class BaseActivity<V : BaseView<P>, P : BasePresenter<V>, DB : ViewData
 
     override fun onDestroy() {
         presenter.unsubscribe()
+        binding.unbind()
         super.onDestroy()
     }
 }

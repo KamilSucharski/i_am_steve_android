@@ -41,6 +41,7 @@ abstract class BaseFragment<V : BaseView<P>, P : BasePresenter<V>, DB : ViewData
 
     override fun onDestroyView() {
         presenter.unsubscribe()
+        binding.unbind()
         super.onDestroyView()
     }
 
