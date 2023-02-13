@@ -3,16 +3,13 @@ package com.iamsteve.domain.view.comic.single
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.model.ComicPanels
 import com.iamsteve.domain.util.error.ErrorHandling
-import com.iamsteve.domain.view.base.BaseView
+import com.iamsteve.domain.view.base.Presenter
+import com.iamsteve.domain.view.base.View
 
-interface ComicContract {
-    interface View : BaseView<Presenter>, ErrorHandling {
-        val comic: Comic
+interface ComicView : View<Presenter<ComicView>>, ErrorHandling {
+    val comic: Comic
 
-        fun setState(state: State)
-    }
-
-    interface Presenter : com.iamsteve.domain.view.base.Presenter<View>
+    fun setState(state: State)
 
     data class State(
         val comic: Comic,

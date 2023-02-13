@@ -3,10 +3,10 @@ package com.iamsteve.domain.view.comic.gallery
 import com.iamsteve.domain.view.base.BasePresenter
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class ComicGalleryPresenter : BasePresenter<ComicGalleryContract.View>(), ComicGalleryContract.Presenter {
+class ComicGalleryPresenter : BasePresenter<ComicGalleryView>() {
 
-    override fun subscribeView(view: ComicGalleryContract.View) {
-        val state = BehaviorSubject.createDefault(ComicGalleryContract.State(
+    override fun subscribeView(view: ComicGalleryView) {
+        val state = BehaviorSubject.createDefault(ComicGalleryView.State(
             comics = view.comics,
             previousButtonVisible = true,
             nextButtonVisible = false

@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.iamsteve.domain.view.base.Presenter
-import com.iamsteve.domain.view.base.BaseView
+import com.iamsteve.domain.view.base.View
+import org.koin.core.component.KoinComponent
 
-abstract class BaseActivity<V : BaseView<P>, P : Presenter<V>, DB : ViewDataBinding>(
+abstract class BaseActivity<V : View<Presenter<V>>, DB : ViewDataBinding>(
     @LayoutRes private val layoutResource: Int
-) : AppCompatActivity() {
+) : AppCompatActivity(), KoinComponent {
 
-    protected abstract val presenter: P
+    protected abstract val presenter: Presenter<V>
     protected lateinit var binding: DB
 
     @Suppress("UNCHECKED_CAST")

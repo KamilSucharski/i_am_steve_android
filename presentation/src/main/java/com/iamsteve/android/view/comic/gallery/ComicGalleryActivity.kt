@@ -14,16 +14,16 @@ import com.iamsteve.android.view.comic.gallery.adapter.ComicFragmentAdapter
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
-import com.iamsteve.domain.util.extension.cast
-import com.iamsteve.domain.view.comic.gallery.ComicGalleryContract
+import com.iamsteve.domain.view.comic.gallery.ComicGalleryPresenter
+import com.iamsteve.domain.view.comic.gallery.ComicGalleryView
 import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 
-class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGalleryContract.Presenter, ActivityComicGalleryBinding>(
+class ComicGalleryActivity : BaseActivity<ComicGalleryView, ActivityComicGalleryBinding>(
     layoutResource = R.layout.activity_comic_gallery
-), ComicGalleryContract.View {
+), ComicGalleryView {
 
     override val comics: List<Comic>
         get() = intent
@@ -40,7 +40,7 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
         get() = binding.nextButton.clicks().share()
     override val currentPosition: Int
         get() = binding.viewPager.currentItem
-    override val presenter: ComicGalleryContract.Presenter by inject()
+    override val presenter by inject<ComicGalleryPresenter>()
     private val archiveActivityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -55,7 +55,7 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
         }
     }
 
-    override fun setState(state: ComicGalleryContract.State) {
+    override fun setState(state: ComicGalleryView.State) {
         if (binding.viewPager.adapter == null) {
             binding.viewPager.run {
                 registerOnPageChangeCallback(OnPageChangedSubject(pageChangedTrigger))

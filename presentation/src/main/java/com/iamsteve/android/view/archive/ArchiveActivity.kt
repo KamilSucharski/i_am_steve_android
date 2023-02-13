@@ -17,14 +17,14 @@ import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.abstraction.map
-import com.iamsteve.domain.util.extension.cast
-import com.iamsteve.domain.view.archive.ArchiveContract
+import com.iamsteve.domain.view.archive.ArchivePresenter
+import com.iamsteve.domain.view.archive.ArchiveView
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 
-class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
+class ArchiveActivity : BaseActivity<ArchiveView, ActivityArchiveBinding>(
     layoutResource = R.layout.activity_archive
-), ArchiveContract.View {
+), ArchiveView {
 
     override val comics: List<Comic>
         get() = intent
@@ -32,7 +32,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
             ?.serializable(Consts.EXTRA_COMICS)
             ?: throw MissingArgumentException()
     override val comicTrigger: PublishSubject<Comic> = PublishSubject.create()
-    override val presenter by inject<ArchiveContract.Presenter>()
+    override val presenter by inject<ArchivePresenter>()
 
     companion object {
         fun startForResult(
@@ -53,7 +53,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
         }
     }
 
-    override fun setState(state: ArchiveContract.State) {
+    override fun setState(state: ArchiveView.State) {
         binding.recyclerView.layoutManager = LinearLayoutManager(
             binding.recyclerView.context,
             RecyclerView.VERTICAL,

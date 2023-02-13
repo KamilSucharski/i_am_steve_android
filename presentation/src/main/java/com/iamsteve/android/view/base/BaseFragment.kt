@@ -10,15 +10,15 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.iamsteve.android.util.persistence.Persistence
 import com.iamsteve.domain.view.base.Presenter
-import com.iamsteve.domain.view.base.BaseView
 import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
 
-abstract class BaseFragment<V : BaseView<P>, P : Presenter<V>, DB : ViewDataBinding>(
+abstract class BaseFragment<V : com.iamsteve.domain.view.base.View<Presenter<V>>, DB : ViewDataBinding>(
     @LayoutRes private val layoutResource: Int
-) : Fragment() {
+) : Fragment(), KoinComponent {
 
     private val persistence by inject<Persistence>()
-    protected abstract val presenter: P
+    protected abstract val presenter: Presenter<V>
     protected lateinit var binding: DB
 
     override fun onCreateView(

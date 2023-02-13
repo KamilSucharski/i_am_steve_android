@@ -6,12 +6,12 @@ import com.iamsteve.domain.view.base.BasePresenter
 
 class ComicPresenter(
     private val getComicPanelsOperation: GetComicPanelsOperation
-) : BasePresenter<ComicContract.View>(), ComicContract.Presenter {
+) : BasePresenter<ComicView>() {
 
-    override fun subscribeView(view: ComicContract.View) {
+    override fun subscribeView(view: ComicView) {
         getComicPanelsOperation
             .execute(view.comic)
-            .map { ComicContract.State(comic = view.comic, comicPanels = it) }
+            .map { ComicView.State(comic = view.comic, comicPanels = it) }
             .handleError(view.errorHandler)
             .subscribe(view::setState)
             .autoDispose()

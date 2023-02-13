@@ -1,6 +1,5 @@
 package com.iamsteve.domain.view.base
 
-interface BaseView<out T : Presenter<*>> {
-
+interface View<out T : Presenter<*>> {
     val presenter: T
 }

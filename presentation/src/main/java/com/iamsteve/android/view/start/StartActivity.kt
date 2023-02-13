@@ -6,18 +6,19 @@ import com.iamsteve.android.util.implementation.ToastErrorHandler
 import com.iamsteve.android.view.base.BaseActivity
 import com.iamsteve.android.view.comic.gallery.ComicGalleryActivity
 import com.iamsteve.domain.model.Comic
-import com.iamsteve.domain.view.start.StartContract
+import com.iamsteve.domain.view.start.StartPresenter
+import com.iamsteve.domain.view.start.StartView
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
-class StartActivity : BaseActivity<StartContract.View, StartContract.Presenter, ActivityStartBinding>(
+class StartActivity : BaseActivity<StartView, ActivityStartBinding>(
     layoutResource = R.layout.activity_start
-), StartContract.View {
+), StartView {
 
-    override val presenter: StartContract.Presenter by inject()
+    override val presenter by inject<StartPresenter>()
     override val errorHandler: ToastErrorHandler by inject { parametersOf({ this }) }
 
-    override fun setState(state: StartContract.State) {
+    override fun setState(state: StartView.State) {
         binding.bodyTextView.text = getString(
             R.string.start_body_with_progress,
             state.done,

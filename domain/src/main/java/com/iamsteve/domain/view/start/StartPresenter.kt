@@ -11,10 +11,10 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 class StartPresenter(
     private val getComicsOperation: GetComicsOperation,
     private val getComicPanelsOperation: GetComicPanelsOperation
-) : BasePresenter<StartContract.View>(), StartContract.Presenter {
+) : BasePresenter<StartView>() {
 
-    override fun subscribeView(view: StartContract.View) {
-        val state = BehaviorSubject.create<StartContract.State>()
+    override fun subscribeView(view: StartView) {
+        val state = BehaviorSubject.create<StartView.State>()
 
         state
             .subscribe(view::setState)
@@ -30,10 +30,12 @@ class StartPresenter(
                         getComicPanelsOperation
                             .execute(comic)
                             .map {
-                                state.onNext(StartContract.State(
-                                    done = comic.number,
-                                    all = comics.size
-                                ))
+                                state.onNext(
+                                    StartView.State(
+                                        done = comic.number,
+                                        all = comics.size
+                                    )
+                                )
                             }
                             .handleError(view.errorHandler)
                     }

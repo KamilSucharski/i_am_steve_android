@@ -3,10 +3,10 @@ package com.iamsteve.domain.view.archive
 import com.iamsteve.domain.view.base.BasePresenter
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class ArchivePresenter : BasePresenter<ArchiveContract.View>(), ArchiveContract.Presenter {
+class ArchivePresenter : BasePresenter<ArchiveView>(){
 
-    override fun subscribeView(view: ArchiveContract.View) {
-        val state = BehaviorSubject.createDefault(ArchiveContract.State(comics = view.comics))
+    override fun subscribeView(view: ArchiveView) {
+        val state = BehaviorSubject.createDefault(ArchiveView.State(comics = view.comics))
 
         state
             .subscribe(view::setState)
