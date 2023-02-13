@@ -1,12 +1,8 @@
 package com.iamsteve.domain.view.base
 
-import io.reactivex.disposables.CompositeDisposable
+interface Presenter<V> {
 
-abstract class Presenter<V> : BasePresenter<V> {
+    fun subscribeView(view: V)
 
-    protected val disposables = CompositeDisposable()
-
-    override fun unsubscribe() {
-        disposables.clear()
-    }
+    fun unsubscribe()
 }

@@ -9,11 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.iamsteve.android.util.persistence.Persistence
-import com.iamsteve.domain.view.base.BasePresenter
+import com.iamsteve.domain.view.base.Presenter
 import com.iamsteve.domain.view.base.BaseView
 import org.koin.android.ext.android.inject
 
-abstract class BaseFragment<V : BaseView<P>, P : BasePresenter<V>, DB : ViewDataBinding>(
+abstract class BaseFragment<V : BaseView<P>, P : Presenter<V>, DB : ViewDataBinding>(
     @LayoutRes private val layoutResource: Int
 ) : Fragment() {
 
@@ -36,7 +36,7 @@ abstract class BaseFragment<V : BaseView<P>, P : BasePresenter<V>, DB : ViewData
     @Suppress("UNCHECKED_CAST")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.subscribe(this as V)
+        presenter.subscribeView(this as V)
     }
 
     override fun onDestroyView() {

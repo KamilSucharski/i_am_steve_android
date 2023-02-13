@@ -3,11 +3,10 @@ package com.iamsteve.android
 import android.app.Application
 import com.iamsteve.android.di.PresentationModule
 import com.iamsteve.data.di.DataModule
-import io.reactivex.exceptions.UndeliverableException
-import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.rxjava3.exceptions.UndeliverableException
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import java.util.*
 
 class App : Application() {
 

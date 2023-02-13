@@ -1,7 +1,7 @@
 package com.iamsteve.domain.repository
 
 import com.iamsteve.domain.model.Comic
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import java.io.File
 
 interface ComicRepository {

@@ -1,9 +1,8 @@
 package com.iamsteve.domain.view.archive
 
 import com.iamsteve.domain.model.Comic
-import com.iamsteve.domain.view.base.BasePresenter
 import com.iamsteve.domain.view.base.BaseView
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 interface ArchiveContract {
     interface View : BaseView<Presenter> {
@@ -14,7 +13,7 @@ interface ArchiveContract {
         fun navigateToComic(comic: Comic)
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : com.iamsteve.domain.view.base.Presenter<View>
 
     data class State(
         val comics: List<Comic>

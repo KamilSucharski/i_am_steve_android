@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 fun apiModule(
@@ -35,7 +35,7 @@ fun apiModule(
             .build()
 
         val converterFactory = GsonConverterFactory.create(get())
-        val callAdapterFactory = RxJava2CallAdapterFactory
+        val callAdapterFactory = RxJava3CallAdapterFactory
             .createWithScheduler(get<RxSchedulers>().subscribeThread)
 
         Retrofit

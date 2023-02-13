@@ -2,7 +2,7 @@ package com.iamsteve.data.api
 
 import com.iamsteve.data.dto.ComicDto
 import com.iamsteve.domain.util.Consts
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Path

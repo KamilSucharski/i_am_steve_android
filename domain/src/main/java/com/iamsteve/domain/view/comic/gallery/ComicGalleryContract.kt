@@ -1,9 +1,8 @@
 package com.iamsteve.domain.view.comic.gallery
 
 import com.iamsteve.domain.model.Comic
-import com.iamsteve.domain.view.base.BasePresenter
 import com.iamsteve.domain.view.base.BaseView
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 
 interface ComicGalleryContract {
     interface View : BaseView<Presenter> {
@@ -20,7 +19,7 @@ interface ComicGalleryContract {
         fun navigateToArchiveScreen(comics: List<Comic>)
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : com.iamsteve.domain.view.base.Presenter<View>
 
     data class State(
         val comics: List<Comic>,

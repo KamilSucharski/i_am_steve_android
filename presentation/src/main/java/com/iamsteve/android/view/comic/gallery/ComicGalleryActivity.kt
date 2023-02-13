@@ -15,9 +15,9 @@ import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.extension.cast
 import com.iamsteve.domain.view.comic.gallery.ComicGalleryContract
-import com.jakewharton.rxbinding3.view.clicks
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import com.jakewharton.rxbinding4.view.clicks
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 
 class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGalleryContract.Presenter, ActivityComicGalleryBinding>(
@@ -30,8 +30,8 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
             ?.getSerializable(Consts.EXTRA_COMICS)
             ?.cast()
             ?: throw MissingArgumentException()
-    override val pageChangedTrigger = PublishSubject.create<Int>()
-    override val comicSelectedInArchiveTrigger = PublishSubject.create<Comic>()
+    override val pageChangedTrigger: PublishSubject<Int> = PublishSubject.create()
+    override val comicSelectedInArchiveTrigger: PublishSubject<Comic> = PublishSubject.create()
     override val previousButtonTrigger: Observable<Unit>
         get() = binding.previousButton.clicks().share()
     override val archiveButtonTrigger: Observable<Unit>

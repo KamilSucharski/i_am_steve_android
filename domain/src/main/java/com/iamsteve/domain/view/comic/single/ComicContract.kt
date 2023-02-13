@@ -3,7 +3,6 @@ package com.iamsteve.domain.view.comic.single
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.model.ComicPanels
 import com.iamsteve.domain.util.error.ErrorHandling
-import com.iamsteve.domain.view.base.BasePresenter
 import com.iamsteve.domain.view.base.BaseView
 
 interface ComicContract {
@@ -13,7 +12,7 @@ interface ComicContract {
         fun setState(state: State)
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : com.iamsteve.domain.view.base.Presenter<View>
 
     data class State(
         val comic: Comic,

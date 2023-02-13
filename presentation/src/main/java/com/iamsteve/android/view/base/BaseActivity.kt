@@ -5,10 +5,10 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.iamsteve.domain.view.base.BasePresenter
+import com.iamsteve.domain.view.base.Presenter
 import com.iamsteve.domain.view.base.BaseView
 
-abstract class BaseActivity<V : BaseView<P>, P : BasePresenter<V>, DB : ViewDataBinding>(
+abstract class BaseActivity<V : BaseView<P>, P : Presenter<V>, DB : ViewDataBinding>(
     @LayoutRes private val layoutResource: Int
 ) : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ abstract class BaseActivity<V : BaseView<P>, P : BasePresenter<V>, DB : ViewData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResource)
-        presenter.subscribe(this as V)
+        presenter.subscribeView(this as V)
     }
 
     override fun onDestroy() {

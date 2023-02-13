@@ -4,23 +4,21 @@ import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.operation.GetComicsOperation
 import com.iamsteve.domain.util.abstraction.execute
 import com.iamsteve.domain.util.extension.handleError
-import com.iamsteve.domain.view.base.Presenter
-import io.reactivex.Single
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.subjects.BehaviorSubject
+import com.iamsteve.domain.view.base.BasePresenter
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class StartPresenter(
     private val getComicsOperation: GetComicsOperation,
     private val getComicPanelsOperation: GetComicPanelsOperation
-) : Presenter<StartContract.View>(), StartContract.Presenter {
+) : BasePresenter<StartContract.View>(), StartContract.Presenter {
 
-    override fun subscribe(view: StartContract.View) {
+    override fun subscribeView(view: StartContract.View) {
         val state = BehaviorSubject.create<StartContract.State>()
 
         state
             .subscribe(view::setState)
-            .addTo(disposables)
+            .autoDispose()
 
         getComicsOperation
             .execute()
@@ -43,7 +41,7 @@ class StartPresenter(
                 sequentialDownload.map { comics }
             }
             .handleError(view.errorHandler)
-            .subscribeBy { view.navigateToComicGalleryScreen(it) }
-            .addTo(disposables)
+            .subscribe { comics -> view.navigateToComicGalleryScreen(comics) }
+            .autoDispose()
     }
 }

@@ -6,7 +6,7 @@ import com.iamsteve.domain.util.abstraction.Logger
 import com.iamsteve.domain.util.abstraction.Operation
 import com.iamsteve.domain.util.abstraction.RxSchedulers
 import com.iamsteve.domain.util.extension.schedule
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 class GetComicsOperation(
     private val comicRepositoryLocal: ComicRepository.Local,

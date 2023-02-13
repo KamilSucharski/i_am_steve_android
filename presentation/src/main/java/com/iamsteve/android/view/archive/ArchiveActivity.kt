@@ -18,7 +18,7 @@ import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.abstraction.map
 import com.iamsteve.domain.util.extension.cast
 import com.iamsteve.domain.view.archive.ArchiveContract
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 
 class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
@@ -31,7 +31,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
             ?.getSerializable(Consts.EXTRA_COMICS)
             ?.cast()
             ?: throw MissingArgumentException()
-    override val comicTrigger = PublishSubject.create<Comic>()
+    override val comicTrigger: PublishSubject<Comic> = PublishSubject.create()
     override val presenter by inject<ArchiveContract.Presenter>()
 
     companion object {

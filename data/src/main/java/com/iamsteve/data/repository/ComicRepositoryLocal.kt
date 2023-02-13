@@ -9,7 +9,7 @@ import com.iamsteve.domain.exception.NoComicsException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Consts
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 import java.io.BufferedReader
 import java.io.File
 

@@ -1,12 +1,11 @@
 package com.iamsteve.domain.view.comic.gallery
 
-import com.iamsteve.domain.view.base.Presenter
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.subjects.BehaviorSubject
+import com.iamsteve.domain.view.base.BasePresenter
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class ComicGalleryPresenter : Presenter<ComicGalleryContract.View>(), ComicGalleryContract.Presenter {
+class ComicGalleryPresenter : BasePresenter<ComicGalleryContract.View>(), ComicGalleryContract.Presenter {
 
-    override fun subscribe(view: ComicGalleryContract.View) {
+    override fun subscribeView(view: ComicGalleryContract.View) {
         val state = BehaviorSubject.createDefault(ComicGalleryContract.State(
             comics = view.comics,
             previousButtonVisible = true,
@@ -15,7 +14,7 @@ class ComicGalleryPresenter : Presenter<ComicGalleryContract.View>(), ComicGalle
 
         state
             .subscribe(view::setState)
-            .addTo(disposables)
+            .autoDispose()
 
         view.pageChangedTrigger
             .withLatestFrom(state) { position, previousState -> previousState.copy(
@@ -23,26 +22,26 @@ class ComicGalleryPresenter : Presenter<ComicGalleryContract.View>(), ComicGalle
                 nextButtonVisible = position != previousState.comics.lastIndex
             )}
             .subscribe(state::onNext)
-            .addTo(disposables)
+            .autoDispose()
 
         view.previousButtonTrigger
             .map { view.currentPosition - 1 }
             .subscribe(view::setPosition)
-            .addTo(disposables)
+            .autoDispose()
 
         view.archiveButtonTrigger
             .withLatestFrom(state) { _, stateValue -> stateValue.comics }
             .subscribe(view::navigateToArchiveScreen)
-            .addTo(disposables)
+            .autoDispose()
 
         view.nextButtonTrigger
             .map { view.currentPosition + 1 }
             .subscribe(view::setPosition)
-            .addTo(disposables)
+            .autoDispose()
 
         view.comicSelectedInArchiveTrigger
             .withLatestFrom(state) { comic, stateValue -> stateValue.comics.indexOf(comic) }
             .subscribe(view::setPosition)
-            .addTo(disposables)
+            .autoDispose()
     }
 }

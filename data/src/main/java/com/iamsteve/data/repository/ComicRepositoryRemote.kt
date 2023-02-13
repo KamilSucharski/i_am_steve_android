@@ -6,7 +6,7 @@ import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.repository.ComicRepository
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.abstraction.map
-import io.reactivex.Single
+import io.reactivex.rxjava3.core.Single
 
 class ComicRepositoryRemote(
     private val comicApi: ComicApi

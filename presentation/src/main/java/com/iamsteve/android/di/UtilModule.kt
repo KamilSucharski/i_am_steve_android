@@ -9,14 +9,14 @@ import com.iamsteve.data.util.abstraction.Serializer
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.abstraction.Logger
 import com.iamsteve.domain.util.abstraction.RxSchedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val utilModule = module {
-    single<RxSchedulers> {
-        AndroidRxSchedulers(
+    single {
+        RxSchedulers(
             observeThread = AndroidSchedulers.mainThread(),
             subscribeThread = Schedulers.io()
         )
