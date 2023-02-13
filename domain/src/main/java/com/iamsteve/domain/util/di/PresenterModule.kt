@@ -1,4 +1,4 @@
-package com.iamsteve.android.di
+package com.iamsteve.domain.util.di
 
 import com.iamsteve.domain.view.archive.ArchivePresenter
 import com.iamsteve.domain.view.comic.gallery.ComicGalleryPresenter

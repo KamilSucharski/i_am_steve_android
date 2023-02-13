@@ -1,4 +1,4 @@
-package com.iamsteve.data.di
+package com.iamsteve.data.util.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

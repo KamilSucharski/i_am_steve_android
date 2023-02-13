@@ -1,8 +1,13 @@
 package com.iamsteve.android.di
 
-object PresentationModule {
+import com.iamsteve.domain.util.di.KoinModule
+import com.iamsteve.domain.util.di.presenterModule
 
-    fun provide() = listOf(
+object PresentationModule : KoinModule<PresentationModule.Parameters> {
+
+    class Parameters
+
+    override fun provide(parameters: Parameters) = listOf(
         utilModule,
         operationModule,
         presenterModule,

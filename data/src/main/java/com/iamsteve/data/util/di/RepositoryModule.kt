@@ -1,4 +1,4 @@
-package com.iamsteve.data.di
+package com.iamsteve.data.util.di
 
 import com.iamsteve.data.repository.ComicRepositoryLocal
 import com.iamsteve.data.repository.ComicRepositoryRemote

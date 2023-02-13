@@ -1,13 +1,15 @@
-package com.iamsteve.data.di
+package com.iamsteve.data.util.di
 
-object DataModule {
+import com.iamsteve.domain.util.di.KoinModule
+
+object DataModule : KoinModule<DataModule.Parameters> {
 
     class Parameters(
         val apiUrl: String,
         val isNetworkLoggingAllowed: Boolean
     )
 
-    fun provide(parameters: Parameters) = listOf(
+    override fun provide(parameters: Parameters) = listOf(
         repositoryModule,
         apiModule(
             apiUrl = parameters.apiUrl,
