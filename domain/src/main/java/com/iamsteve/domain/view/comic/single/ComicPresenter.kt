@@ -2,7 +2,7 @@ package com.iamsteve.domain.view.comic.single
 
 import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.util.extension.handleError
-import com.iamsteve.domain.view.base.BasePresenter
+import com.iamsteve.domain.util.BasePresenter
 
 class ComicPresenter : BasePresenter<ComicView>() {
 

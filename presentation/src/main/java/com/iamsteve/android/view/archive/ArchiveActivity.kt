@@ -11,7 +11,7 @@ import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityArchiveBinding
 import com.iamsteve.android.util.adapter.SimpleAdapter
 import com.iamsteve.android.util.extension.serializable
-import com.iamsteve.android.view.base.BaseActivity
+import com.iamsteve.android.util.BaseActivity
 import com.iamsteve.android.view.list.mapper.ArchiveItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic

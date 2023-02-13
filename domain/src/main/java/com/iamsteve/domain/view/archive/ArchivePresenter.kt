@@ -1,6 +1,6 @@
 package com.iamsteve.domain.view.archive
 
-import com.iamsteve.domain.view.base.BasePresenter
+import com.iamsteve.domain.util.BasePresenter
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class ArchivePresenter : BasePresenter<ArchiveView>(){

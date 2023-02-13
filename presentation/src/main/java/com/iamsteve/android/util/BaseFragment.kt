@@ -1,4 +1,4 @@
-package com.iamsteve.android.view.base
+package com.iamsteve.android.util
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.iamsteve.android.util.persistence.Persistence
-import com.iamsteve.domain.view.base.Presenter
+import com.iamsteve.domain.util.Presenter
 import org.koin.android.ext.android.inject
 import org.koin.core.component.KoinComponent
 
-abstract class BaseFragment<V : com.iamsteve.domain.view.base.View<Presenter<V>>, DB : ViewDataBinding>(
+abstract class BaseFragment<V : com.iamsteve.domain.util.View<Presenter<V>>, DB : ViewDataBinding>(
     @LayoutRes private val layoutResource: Int
 ) : Fragment(), KoinComponent {
 

@@ -7,7 +7,7 @@ import com.iamsteve.android.databinding.FragmentComicBinding
 import com.iamsteve.android.util.adapter.SimpleAdapter
 import com.iamsteve.android.util.extension.serializable
 import com.iamsteve.android.util.implementation.ToastErrorHandler
-import com.iamsteve.android.view.base.BaseFragment
+import com.iamsteve.android.util.BaseFragment
 import com.iamsteve.android.view.list.mapper.ComicItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic

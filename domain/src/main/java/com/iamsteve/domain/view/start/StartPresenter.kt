@@ -3,7 +3,7 @@ package com.iamsteve.domain.view.start
 import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.operation.GetComicsOperation
 import com.iamsteve.domain.util.extension.handleError
-import com.iamsteve.domain.view.base.BasePresenter
+import com.iamsteve.domain.util.BasePresenter
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 

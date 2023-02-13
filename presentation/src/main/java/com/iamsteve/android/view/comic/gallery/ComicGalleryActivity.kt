@@ -9,7 +9,7 @@ import com.iamsteve.android.databinding.ActivityComicGalleryBinding
 import com.iamsteve.android.util.extension.serializable
 import com.iamsteve.android.util.pager.OnPageChangedSubject
 import com.iamsteve.android.view.archive.ArchiveActivity
-import com.iamsteve.android.view.base.BaseActivity
+import com.iamsteve.android.util.BaseActivity
 import com.iamsteve.android.view.comic.gallery.adapter.ComicFragmentAdapter
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic

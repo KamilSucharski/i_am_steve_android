@@ -1,8 +1,8 @@
 package com.iamsteve.domain.view.archive
 
 import com.iamsteve.domain.model.Comic
-import com.iamsteve.domain.view.base.Presenter
-import com.iamsteve.domain.view.base.View
+import com.iamsteve.domain.util.Presenter
+import com.iamsteve.domain.util.View
 import io.reactivex.rxjava3.core.Observable
 
 interface ArchiveView : View<Presenter<ArchiveView>> {
