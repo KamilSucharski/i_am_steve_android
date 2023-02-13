@@ -8,11 +8,11 @@ import org.koin.dsl.module
 
 val presenterModule = module {
     // Start
-    factory { StartPresenter(get(), get()) }
+    factory { StartPresenter() }
 
     // Comic
     factory { ComicGalleryPresenter() }
-    factory { ComicPresenter(get()) }
+    factory { ComicPresenter() }
 
     // Archive
     factory { ArchivePresenter() }

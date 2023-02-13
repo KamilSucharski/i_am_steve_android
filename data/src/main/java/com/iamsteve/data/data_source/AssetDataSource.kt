@@ -1,7 +1,7 @@
-package com.iamsteve.data.util.abstraction
+package com.iamsteve.data.data_source
 
 import java.io.InputStream
 
-interface AssetReader {
+interface AssetDataSource {
     fun read(assetName: String): InputStream
 }

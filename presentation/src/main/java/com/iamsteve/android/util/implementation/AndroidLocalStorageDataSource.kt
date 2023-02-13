@@ -1,18 +1,18 @@
 package com.iamsteve.android.util.implementation
 
 import android.content.SharedPreferences
-import com.iamsteve.data.util.abstraction.LocalStorage
+import com.iamsteve.data.data_source.LocalStorageDataSource
 import com.iamsteve.data.util.abstraction.Serializer
 import com.iamsteve.domain.util.Consts
 import java.io.File
 import java.io.Serializable
 import java.lang.reflect.Type
 
-class AndroidLocalStorage(
+class AndroidLocalStorageDataSource(
     private val sharedPreferences: SharedPreferences,
     private val filesDirectory: File,
     private val serializer: Serializer
-) : LocalStorage {
+) : LocalStorageDataSource {
 
     override fun containsEntry(key: String): Boolean {
         return sharedPreferences.contains(key)

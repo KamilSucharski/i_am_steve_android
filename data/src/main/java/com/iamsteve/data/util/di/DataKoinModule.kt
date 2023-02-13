@@ -2,7 +2,7 @@ package com.iamsteve.data.util.di
 
 import com.iamsteve.domain.util.di.KoinModule
 
-object DataModule : KoinModule<DataModule.Parameters> {
+object DataKoinModule : KoinModule<DataKoinModule.Parameters> {
 
     class Parameters(
         val apiUrl: String,
@@ -11,7 +11,7 @@ object DataModule : KoinModule<DataModule.Parameters> {
 
     override fun provide(parameters: Parameters) = listOf(
         repositoryModule,
-        apiModule(
+        dataDataSourceModule(
             apiUrl = parameters.apiUrl,
             isNetworkLoggingAllowed = parameters.isNetworkLoggingAllowed
         )

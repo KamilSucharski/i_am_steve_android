@@ -1,4 +1,4 @@
-package com.iamsteve.data.api
+package com.iamsteve.data.data_source
 
 import com.iamsteve.data.dto.ComicDto
 import com.iamsteve.domain.util.Consts
@@ -7,8 +7,7 @@ import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface ComicApi {
-
+interface ApiDataSource {
     @GET(Consts.COMIC_METADATA_FILE_NAME)
     fun getComics(): Single<List<ComicDto>>
 

@@ -1,4 +1,4 @@
-package com.iamsteve.android.di
+package com.iamsteve.android.util.di
 
 import android.app.Activity
 import com.iamsteve.android.util.implementation.ToastErrorHandler

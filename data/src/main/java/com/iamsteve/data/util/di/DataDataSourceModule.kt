@@ -2,7 +2,7 @@ package com.iamsteve.data.util.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.iamsteve.data.api.ComicApi
+import com.iamsteve.data.data_source.ApiDataSource
 import com.iamsteve.domain.util.abstraction.RxSchedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun apiModule(
+fun dataDataSourceModule(
     apiUrl: String,
     isNetworkLoggingAllowed: Boolean
 ) = module {
@@ -23,7 +23,7 @@ fun apiModule(
             .create()
     }
 
-    single<ComicApi> {
+    single<ApiDataSource> {
         val okHttpClient = OkHttpClient
             .Builder()
             .also { builder ->
@@ -45,6 +45,6 @@ fun apiModule(
             .addConverterFactory(converterFactory)
             .addCallAdapterFactory(callAdapterFactory)
             .build()
-            .create(ComicApi::class.java)
+            .create(ApiDataSource::class.java)
     }
 }

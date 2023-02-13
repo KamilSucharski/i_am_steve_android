@@ -1,11 +1,10 @@
-package com.iamsteve.data.util.abstraction
+package com.iamsteve.data.data_source
 
 import java.io.File
 import java.io.Serializable
 import java.lang.reflect.Type
 
-interface LocalStorage {
-
+interface LocalStorageDataSource {
     fun containsEntry(key: String): Boolean
 
     fun containsFile(key: String): Boolean

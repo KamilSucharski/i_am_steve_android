@@ -1,8 +1,8 @@
 package com.iamsteve.android
 
 import android.app.Application
-import com.iamsteve.android.di.PresentationModule
-import com.iamsteve.data.util.di.DataModule
+import com.iamsteve.android.util.di.PresentationKoinModule
+import com.iamsteve.data.util.di.DataKoinModule
 import com.iamsteve.domain.util.di.DomainKoinModule
 import io.reactivex.rxjava3.exceptions.UndeliverableException
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
@@ -30,10 +30,10 @@ class App : Application() {
     }
 
     private fun initKoin() {
-        val presentationModules = PresentationModule.provide(PresentationModule.Parameters())
+        val presentationModules = PresentationKoinModule.provide(PresentationKoinModule.Parameters())
         val domainModules = DomainKoinModule.provide(DomainKoinModule.Parameters())
-        val dataModules = DataModule.provide(
-            DataModule.Parameters(
+        val dataModules = DataKoinModule.provide(
+            DataKoinModule.Parameters(
                 apiUrl = BuildConfig.API_URL,
                 isNetworkLoggingAllowed = BuildConfig.ALLOW_NETWORK_LOGGING
             )
