@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isInvisible
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityComicGalleryBinding
+import com.iamsteve.android.util.extension.serializable
 import com.iamsteve.android.util.pager.OnPageChangedSubject
 import com.iamsteve.android.view.archive.ArchiveActivity
 import com.iamsteve.android.view.base.BaseActivity
@@ -27,8 +28,7 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryContract.View, ComicGaller
     override val comics: List<Comic>
         get() = intent
             .extras
-            ?.getSerializable(Consts.EXTRA_COMICS)
-            ?.cast()
+            ?.serializable(Consts.EXTRA_COMICS)
             ?: throw MissingArgumentException()
     override val pageChangedTrigger: PublishSubject<Int> = PublishSubject.create()
     override val comicSelectedInArchiveTrigger: PublishSubject<Comic> = PublishSubject.create()

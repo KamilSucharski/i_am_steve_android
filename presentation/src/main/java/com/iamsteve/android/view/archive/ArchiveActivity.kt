@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityArchiveBinding
 import com.iamsteve.android.util.adapter.SimpleAdapter
+import com.iamsteve.android.util.extension.serializable
 import com.iamsteve.android.view.base.BaseActivity
 import com.iamsteve.android.view.list.mapper.ArchiveItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
@@ -28,8 +29,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
     override val comics: List<Comic>
         get() = intent
             .extras
-            ?.getSerializable(Consts.EXTRA_COMICS)
-            ?.cast()
+            ?.serializable(Consts.EXTRA_COMICS)
             ?: throw MissingArgumentException()
     override val comicTrigger: PublishSubject<Comic> = PublishSubject.create()
     override val presenter by inject<ArchiveContract.Presenter>()
@@ -49,8 +49,7 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
             return activityResult
                 .takeIf { it.resultCode == Activity.RESULT_OK }
                 ?.data
-                ?.getSerializableExtra(Consts.EXTRA_COMIC)
-                ?.cast<Comic>()
+                ?.serializable(Consts.EXTRA_COMIC)
         }
     }
 

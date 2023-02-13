@@ -1,6 +1,7 @@
 package com.iamsteve.android.util.persistence
 
 import android.os.Bundle
+import com.iamsteve.android.util.extension.serializable
 import com.iamsteve.domain.util.abstraction.Logger
 import java.io.Serializable
 import java.lang.reflect.Field
@@ -44,7 +45,7 @@ class Persistence(
             val isAccessible = field.isAccessible
             field.isAccessible = true
             val key = field.name
-            val value = bundle.getSerializable(key)
+            val value = bundle.serializable<Serializable>(key)
             field[instance] = value
             field.isAccessible = isAccessible
         } catch (e: Exception) {
