@@ -1,5 +1,6 @@
 package com.iamsteve.android.util.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -37,6 +38,7 @@ class SimpleAdapter : RecyclerView.Adapter<SimpleViewHolder>(), Adapter {
         holder.binding.unbind()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun setData(items: List<Adapter.Item<out ViewDataBinding>>) {
         this.items = items
         notifyDataSetChanged()

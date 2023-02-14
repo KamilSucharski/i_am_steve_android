@@ -1,5 +1,5 @@
 package com.iamsteve.domain.util.error
 
-interface ErrorHandling {
+interface WithErrorHandler {
     val errorHandler: ErrorHandler
 }

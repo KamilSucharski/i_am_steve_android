@@ -3,7 +3,7 @@ package com.iamsteve.data.util.di
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.iamsteve.data.data_source.ApiDataSource
-import com.iamsteve.domain.util.abstraction.RxSchedulers
+import com.iamsteve.domain.util.abstraction.ReactiveSchedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -36,7 +36,7 @@ fun dataDataSourceModule(
 
         val converterFactory = GsonConverterFactory.create(get())
         val callAdapterFactory = RxJava3CallAdapterFactory
-            .createWithScheduler(get<RxSchedulers>().subscribeThread)
+            .createWithScheduler(get<ReactiveSchedulers>().subscribeThread)
 
         Retrofit
             .Builder()

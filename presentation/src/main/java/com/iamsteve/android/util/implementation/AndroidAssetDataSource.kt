@@ -7,6 +7,6 @@ import java.io.InputStream
 class AndroidAssetDataSource(private val assetManager: AssetManager) : AssetDataSource {
 
     override fun read(assetName: String): InputStream {
-        return assetManager.open(assetName);
+        return assetManager.open(assetName)
     }
 }
