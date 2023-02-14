@@ -29,11 +29,11 @@ class ComicRepositoryImpl : ComicRepository, KoinComponent {
 
     override fun getComics(): Single<List<Comic>> = getComicsFromApiAndSaveToLocalStorage()
         .onErrorResumeNext {
-            logger.error("Couldn't get comics.json from the API. Trying local storage.", it)
+            logger.warning("Couldn't get comics.json from the API. Trying local storage.", it)
             getComicsFromLocalStorage()
         }
         .onErrorResumeNext {
-            logger.error("Couldn't get comics.json from the local storage. Trying assets.", it)
+            logger.warning("Couldn't get comics.json from the local storage. Trying assets.", it)
             getComicsFromAssets()
         }
 
@@ -41,11 +41,11 @@ class ComicRepositoryImpl : ComicRepository, KoinComponent {
         comicNumber: Int
     ): Single<ComicPanels> = getComicPanelsFromAssetsAndRemoveFromLocalStorage(comicNumber)
         .onErrorResumeNext {
-            logger.error("Couldn't get comic panels from the assets. Trying local storage.", it)
+            logger.warning("Couldn't get comic panels from the assets. Trying local storage.", it)
             getComicPanelsFromLocalStorage(comicNumber)
         }
         .onErrorResumeNext {
-            logger.error("Couldn't get comic panels from the local storage. Trying API.", it)
+            logger.warning("Couldn't get comic panels from the local storage. Trying API.", it)
             getComicPanelsFromApiAndSaveToLocalStorage(comicNumber)
         }
 

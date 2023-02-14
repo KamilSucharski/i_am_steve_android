@@ -10,6 +10,14 @@ class AndroidLogger : Logger {
         Log.d(Consts.TAG, string)
     }
 
+    override fun warning(string: String) {
+        Log.w(Consts.TAG, string)
+    }
+
+    override fun warning(string: String, throwable: Throwable) {
+        Log.w(Consts.TAG, string, throwable)
+    }
+
     override fun error(string: String) {
         Log.e(Consts.TAG, string)
     }
