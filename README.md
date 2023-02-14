@@ -4,3 +4,6 @@
 An android app for reading the "i am steve" web comic with offline support.
 
 [Download now on Google Play Store](https://play.google.com/store/apps/details?id=com.iamsteve.android)
+
+Based on the following architecture:
+<img src="web/architecture.png" alt="architecture" width="700" />

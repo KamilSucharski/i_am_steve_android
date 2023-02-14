@@ -10,29 +10,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityArchiveBinding
 import com.iamsteve.android.util.adapter.SimpleAdapter
-import com.iamsteve.android.view.base.BaseActivity
+import com.iamsteve.android.util.extension.serializable
+import com.iamsteve.android.util.BaseActivity
 import com.iamsteve.android.view.list.mapper.ArchiveItemMapper
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
 import com.iamsteve.domain.util.Consts
 import com.iamsteve.domain.util.abstraction.map
-import com.iamsteve.domain.util.extension.cast
-import com.iamsteve.domain.view.archive.ArchiveContract
-import io.reactivex.subjects.PublishSubject
+import com.iamsteve.domain.view.archive.ArchivePresenter
+import com.iamsteve.domain.view.archive.ArchiveView
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 
-class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Presenter, ActivityArchiveBinding>(
+class ArchiveActivity : BaseActivity<ArchiveView, ActivityArchiveBinding>(
     layoutResource = R.layout.activity_archive
-), ArchiveContract.View {
+), ArchiveView {
 
     override val comics: List<Comic>
         get() = intent
             .extras
-            ?.getSerializable(Consts.EXTRA_COMICS)
-            ?.cast()
+            ?.serializable(Consts.EXTRA_COMICS)
             ?: throw MissingArgumentException()
-    override val comicTrigger = PublishSubject.create<Comic>()
-    override val presenter by inject<ArchiveContract.Presenter>()
+    override val comicTrigger: PublishSubject<Comic> = PublishSubject.create()
+    override val presenter by inject<ArchivePresenter>()
 
     companion object {
         fun startForResult(
@@ -49,12 +49,11 @@ class ArchiveActivity : BaseActivity<ArchiveContract.View, ArchiveContract.Prese
             return activityResult
                 .takeIf { it.resultCode == Activity.RESULT_OK }
                 ?.data
-                ?.getSerializableExtra(Consts.EXTRA_COMIC)
-                ?.cast<Comic>()
+                ?.serializable(Consts.EXTRA_COMIC)
         }
     }
 
-    override fun setState(state: ArchiveContract.State) {
+    override fun setState(state: ArchiveView.State) {
         binding.recyclerView.layoutManager = LinearLayoutManager(
             binding.recyclerView.context,
             RecyclerView.VERTICAL,

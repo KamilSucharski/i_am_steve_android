@@ -4,11 +4,11 @@ import com.iamsteve.android.util.adapter.Adapter
 import com.iamsteve.android.view.list.item.ComicPanelItem
 import com.iamsteve.android.view.list.item.ComicTitleItem
 import com.iamsteve.domain.util.abstraction.Mapper
-import com.iamsteve.domain.view.comic.single.ComicContract
+import com.iamsteve.domain.view.comic.single.ComicView
 
-class ComicItemMapper : Mapper<ComicContract.State, List<Adapter.Item<*>>> {
+class ComicItemMapper : Mapper<ComicView.State, List<Adapter.Item<*>>> {
 
-    override fun ComicContract.State.map() = listOf(
+    override fun ComicView.State.map() = listOf(
         ComicPanelItem(bytes = comicPanels.panel1),
         ComicPanelItem(bytes = comicPanels.panel2),
         ComicPanelItem(bytes = comicPanels.panel3),

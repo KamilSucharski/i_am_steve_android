@@ -1,20 +1,19 @@
 package com.iamsteve.domain.view.archive
 
-import com.iamsteve.domain.view.base.Presenter
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.subjects.BehaviorSubject
+import com.iamsteve.domain.util.BasePresenter
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class ArchivePresenter : Presenter<ArchiveContract.View>(), ArchiveContract.Presenter {
+class ArchivePresenter : BasePresenter<ArchiveView>(){
 
-    override fun subscribe(view: ArchiveContract.View) {
-        val state = BehaviorSubject.createDefault(ArchiveContract.State(comics = view.comics))
+    override fun subscribeView(view: ArchiveView) {
+        val state = BehaviorSubject.createDefault(ArchiveView.State(comics = view.comics))
 
         state
             .subscribe(view::setState)
-            .addTo(disposables)
+            .autoDispose()
 
         view.comicTrigger
             .subscribe(view::navigateToComic)
-            .addTo(disposables)
+            .autoDispose()
     }
 }

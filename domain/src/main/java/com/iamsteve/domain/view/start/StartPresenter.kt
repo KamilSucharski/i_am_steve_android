@@ -2,40 +2,36 @@ package com.iamsteve.domain.view.start
 
 import com.iamsteve.domain.operation.GetComicPanelsOperation
 import com.iamsteve.domain.operation.GetComicsOperation
-import com.iamsteve.domain.util.abstraction.execute
 import com.iamsteve.domain.util.extension.handleError
-import com.iamsteve.domain.view.base.Presenter
-import io.reactivex.Single
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.subjects.BehaviorSubject
+import com.iamsteve.domain.util.BasePresenter
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
-class StartPresenter(
-    private val getComicsOperation: GetComicsOperation,
-    private val getComicPanelsOperation: GetComicPanelsOperation
-) : Presenter<StartContract.View>(), StartContract.Presenter {
+class StartPresenter : BasePresenter<StartView>() {
 
-    override fun subscribe(view: StartContract.View) {
-        val state = BehaviorSubject.create<StartContract.State>()
+    override fun subscribeView(view: StartView) {
+        val state = BehaviorSubject.create<StartView.State>()
 
         state
             .subscribe(view::setState)
-            .addTo(disposables)
+            .autoDispose()
 
-        getComicsOperation
+        GetComicsOperation()
             .execute()
             .handleError(view.errorHandler)
             .flatMap { comics ->
                 var sequentialDownload: Single<Any> = Single.just(Unit)
                 comics.forEach { comic ->
                     sequentialDownload = sequentialDownload.flatMap {
-                        getComicPanelsOperation
-                            .execute(comic)
+                        GetComicPanelsOperation(comic)
+                            .execute()
                             .map {
-                                state.onNext(StartContract.State(
-                                    done = comic.number,
-                                    all = comics.size
-                                ))
+                                state.onNext(
+                                    StartView.State(
+                                        done = comic.number,
+                                        all = comics.size
+                                    )
+                                )
                             }
                             .handleError(view.errorHandler)
                     }
@@ -43,7 +39,7 @@ class StartPresenter(
                 sequentialDownload.map { comics }
             }
             .handleError(view.errorHandler)
-            .subscribeBy { view.navigateToComicGalleryScreen(it) }
-            .addTo(disposables)
+            .subscribe { comics -> view.navigateToComicGalleryScreen(comics) }
+            .autoDispose()
     }
 }
