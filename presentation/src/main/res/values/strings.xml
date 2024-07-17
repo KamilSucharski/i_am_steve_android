@@ -5,6 +5,10 @@
 
     <!-- Comic -->
     <string name="comic_title_format">#%1$d %2$s</string>
+    <string name="book_dialog_title">Book announcement</string>
+    <string name="book_dialog_message">Did you know that there exists an "i am steve" book, which has more comics than this app and extras?</string>
+    <string name="book_dialog_positive">Show me</string>
+    <string name="book_dialog_negative">Maybe later</string>
 
     <!-- Archive -->
     <string name="comic_archive_format">#%1$d %2$s (%3$s)</string>

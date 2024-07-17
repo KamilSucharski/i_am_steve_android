@@ -2,14 +2,17 @@ package com.iamsteve.android.view.comic.gallery
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isInvisible
 import com.iamsteve.android.R
 import com.iamsteve.android.databinding.ActivityComicGalleryBinding
+import com.iamsteve.android.util.BaseActivity
 import com.iamsteve.android.util.extension.serializable
 import com.iamsteve.android.util.pager.OnPageChangedSubject
 import com.iamsteve.android.view.archive.ArchiveActivity
-import com.iamsteve.android.util.BaseActivity
 import com.iamsteve.android.view.comic.gallery.adapter.ComicFragmentAdapter
 import com.iamsteve.domain.exception.MissingArgumentException
 import com.iamsteve.domain.model.Comic
@@ -20,6 +23,7 @@ import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.android.ext.android.inject
+
 
 class ComicGalleryActivity : BaseActivity<ComicGalleryView, ActivityComicGalleryBinding>(
     layoutResource = R.layout.activity_comic_gallery
@@ -53,6 +57,19 @@ class ComicGalleryActivity : BaseActivity<ComicGalleryView, ActivityComicGallery
                 .putExtra(Consts.EXTRA_COMICS, ArrayList(comics))
                 .let(context::startActivity)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        AlertDialog
+            .Builder(this, R.style.Theme_AlertDialog)
+            .setTitle(R.string.book_dialog_title)
+            .setMessage(R.string.book_dialog_message)
+            .setPositiveButton(R.string.book_dialog_positive) { _, _ ->
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Consts.BOOK_URL)))
+            }
+            .setNegativeButton(R.string.book_dialog_negative) { _, _ -> }
+            .show()
     }
 
     override fun setState(state: ComicGalleryView.State) {
