@@ -9,12 +9,14 @@ if (keystoreProperties.exists()) {
 
 android {
     defaultConfig {
+        namespace = "com.iamsteve.android"
         applicationId = "com.iamsteve.android"
         manifestPlaceholders.applicationName = "i am steve"
         project.archivesBaseName = "i-am-steve-${versionName}".toString()
         buildConfigField 'boolean', 'ALLOW_SYSTEM_LOGGING', 'false'
         buildConfigField 'boolean', 'ALLOW_NETWORK_LOGGING', 'false'
     }
+
     signingConfigs {
         release {
             storeFile file("${props.getProperty("release.key.store", "debug_keystore.jks")}")
@@ -45,7 +47,7 @@ android {
         }
     }
 
-    flavorDimensions "server", "preload"
+    flavorDimensions += ["server", "preload"]
 
     productFlavors {
         // Server
@@ -63,6 +65,13 @@ android {
             dimension "preload"
         }
     }
+    lint {
+        abortOnError false
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -71,13 +80,13 @@ dependencies {
     implementation project(":data")
 
     // AndroidX
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation "androidx.viewpager2:viewpager2:1.1.0"
 
     // Material
-    implementation 'com.google.android.material:material:1.9.0-alpha01'
+    implementation 'com.google.android.material:material:1.12.0'
 
     // Koin
     implementation "io.insert-koin:koin-android:3.3.2"

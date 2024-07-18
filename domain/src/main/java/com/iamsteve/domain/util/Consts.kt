@@ -13,4 +13,7 @@ object Consts {
     // Extra
     const val EXTRA_COMIC = "EXTRA_COMIC"
     const val EXTRA_COMICS = "EXTRA_COMICS"
+
+    // Url
+    const val BOOK_URL = "https://sengami.itch.io/i-am-steve"
 }

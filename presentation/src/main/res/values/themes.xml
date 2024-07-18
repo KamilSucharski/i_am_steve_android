@@ -1,5 +1,4 @@
 <resources>
-
     <style name="Theme.App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/background</item>
         <item name="colorSecondary">@color/darker_background</item>
@@ -9,5 +8,13 @@
 
         <item name="textAppearanceHeadline1">@style/TextAppearance.App.Headline1</item>
         <item name="textAppearanceBody1">@style/TextAppearance.App.Body1</item>
+    </style>
+
+    <style name="Theme.AlertDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="buttonBarButtonStyle">@style/Theme.DialogButton</item>
+    </style>
+
+    <style name="Theme.DialogButton" parent="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/text</item>
     </style>
 </resources>
